@@ -22,7 +22,6 @@
 		<version.apache.commons.lang>3.1</version.apache.commons.lang>
 		<version.apache.commons.io>2.1</version.apache.commons.io>
 		<version.plexus.interpolation>1.19</version.plexus.interpolation>
-		<version.sourceforge.collections>4.01</version.sourceforge.collections>
 		<version.junit>4.11</version.junit>
 		<version.joda-time>2.1</version.joda-time>
 		<version.opencsv>2.0</version.opencsv>
@@ -82,12 +81,6 @@
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-interpolation</artifactId>
 			<version>${version.plexus.interpolation}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge.collections</groupId>
-			<artifactId>collections-generic</artifactId>
-			<version>${version.sourceforge.collections}</version>
 		</dependency>
 
 		<dependency>

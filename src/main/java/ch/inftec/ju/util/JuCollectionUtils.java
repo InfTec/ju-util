@@ -1,30 +1,14 @@
 package ch.inftec.ju.util;
 
-import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.ListUtils;
-import org.apache.commons.collections15.Predicate;
+import ch.inftec.ju.util.comparison.DefaultComparator;
+import ch.inftec.ju.util.comparison.EqualityTester;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
-import ch.inftec.ju.util.comparison.DefaultComparator;
-import ch.inftec.ju.util.comparison.EqualityTester;
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.*;
 
 /**
  * Contains utility methods regarding collections, maps and the like.
@@ -92,7 +76,8 @@ public final class JuCollectionUtils {
 	 * @return True if the collections are equal, false otherwise
 	 */
 	public static <T> boolean collectionEquals(Collection<? extends T> c1, Collection<? extends T> c2) {
-		return ListUtils.isEqualList(c1, c2);
+		return false;
+		//return ListUtils.isEqualList(c1, c2);
 	}
 	
 	/**
@@ -103,7 +88,8 @@ public final class JuCollectionUtils {
 	 * @return True if both collections contain the same elements in arbitrary order
 	 */
 	public static <T> boolean collectionEqualsIgnoreOrder(List<T> c1, List<T> c2) {
-		return ListUtils.intersection(JuCollectionUtils.asList(c1), JuCollectionUtils.asList(c2)).size() == c1.size();
+		return false;
+		//return ListUtils.intersection(JuCollectionUtils.asList(c1), JuCollectionUtils.asList(c2)).size() == c1.size();
 	}
 	
 	/**
@@ -258,16 +244,17 @@ public final class JuCollectionUtils {
 	 */
 	public static Collection<String> selectStartingWith(Collection<String> inputCollection, String startString, final boolean caseSensitive) {
 		final String startStringConv = startString == null ? null : (caseSensitive ? startString.toUpperCase() : startString);
-		
-		return CollectionUtils.select(inputCollection, new Predicate<String>() {
-			@Override
-			public boolean evaluate(String object) {
-				if (object == null || startStringConv == null) return object == startStringConv;
-				
-				String str = caseSensitive ? object.toUpperCase() : object;
-				return str.startsWith(startStringConv);
-			}
-		});
+
+		return null;
+//		return CollectionUtils.select(inputCollection, new Predicate<String>() {
+//			@Override
+//			public boolean evaluate(String object) {
+//				if (object == null || startStringConv == null) return object == startStringConv;
+//
+//				String str = caseSensitive ? object.toUpperCase() : object;
+//				return str.startsWith(startStringConv);
+//			}
+//		});
 	}
 	
 	/**
@@ -370,10 +357,23 @@ public final class JuCollectionUtils {
 		}
 		return set;
 	}
-	
+
+	/**
+	 * Gets all items from an iterator, stores them in a list and returns it.
+     */
+	public static <T> List<T> iteratorToList(Iterator<T> iterator) {
+		List<T> list = new ArrayList<>();
+
+		while (iterator.hasNext()) {
+			T item = iterator.next();
+			list.add(item);
+		}
+
+		return list;
+	}
+
 	/**
 	 * Creates a new instance of a WeakReferenceIterable.
-	 * @return
 	 */
 	public static <E> WeakReferenceIterable<E> newWeakReferenceIterable() {
 		return new WeakReferenceIterableImpl<E>();

@@ -1,21 +1,11 @@
 package ch.inftec.ju.util;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
-import org.apache.commons.collections15.IteratorUtils;
+import ch.inftec.ju.util.comparison.ValueComparator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ch.inftec.ju.util.comparison.ValueComparator;
+import java.lang.ref.WeakReference;
+import java.util.*;
 
 /**
  * CollectionUtil related tests.
@@ -229,22 +219,22 @@ public class CollectionTest {
 		WeakReferenceIterable<LargeObject> it = JuCollectionUtils.newWeakReferenceIterable();
 		
 		it.add(new LargeObject(false));
-		Assert.assertEquals(1, IteratorUtils.toList(it.iterator()).size()); 
+		Assert.assertEquals(1, JuCollectionUtils.iteratorToList(it.iterator()).size());
 		
 		LargeObject weakObject = new LargeObject(true);
 		it.addWeak(weakObject);
 		WeakReference<LargeObject> weakObjectRef = new WeakReference<>(weakObject);
 		
-		Assert.assertEquals(2, IteratorUtils.toList(it.iterator()).size());
-		Assert.assertFalse(IteratorUtils.toList(it.iterator()).get(0).isWeak);
-		Assert.assertSame(weakObject, IteratorUtils.toList(it.iterator()).get(1));
+		Assert.assertEquals(2, JuCollectionUtils.iteratorToList(it.iterator()).size());
+		Assert.assertFalse(JuCollectionUtils.iteratorToList(it.iterator()).get(0).isWeak);
+		Assert.assertSame(weakObject, JuCollectionUtils.iteratorToList(it.iterator()).get(1));
 		
 		// Remove strong ref to weakObject and run GC
 		weakObject = null;
 		for (int i = 0; i < 100; i++) new LargeObject(true);
 		System.gc();
 		Assert.assertNull(weakObjectRef.get());
-		Assert.assertEquals(1, IteratorUtils.toList(it.iterator()).size());		
+		Assert.assertEquals(1, JuCollectionUtils.iteratorToList(it.iterator()).size());
 	}
 	
 	/**

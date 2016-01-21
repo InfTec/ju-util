@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Makes project deployable on Central through sonatype -->
@@ -12,157 +12,139 @@
 	</parent>
 
 	<artifactId>ju-util</artifactId>
+	<version>5.0</version>
+
 	<name>JU Util</name>
 	<description>General utility functions</description>
+
+	<properties>
+		<version.slf4j>1.7.5</version.slf4j>
+		<version.apache.commons.lang>3.1</version.apache.commons.lang>
+		<version.apache.commons.io>2.1</version.apache.commons.io>
+		<version.plexus.interpolation>1.19</version.plexus.interpolation>
+		<version.sourceforge.collections>4.01</version.sourceforge.collections>
+		<version.junit>4.11</version.junit>
+		<version.joda-time>2.1</version.joda-time>
+		<version.opencsv>2.0</version.opencsv>
+		<version.guava>14.0</version.guava>
+		<version.log4j>1.2.17</version.log4j>
+		<version.jasypt>1.9.1</version.jasypt>
+		<version.cglib>3.1</version.cglib>
+	</properties>
+
+	<url>https://git.inftec.ch/gitlab/ju/ju-util</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>git@bitbucket.org:inftec/ju.git</url>
+		<connection>scm:git:git@bitbucket.org:inftec/ju.git</connection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>mme</id>
+			<name>Martin Meyer</name>
+			<email>martin.meyer@inftec.ch</email>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+			<version>${version.slf4j}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<version>${version.apache.commons.lang}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+			<version>${version.apache.commons.io}</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.codehaus.plexus</groupId>
-		    <artifactId>plexus-interpolation</artifactId>
-		    <version>1.19</version>  <!-- XXX Move to BOM -->
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-interpolation</artifactId>
+			<version>${version.plexus.interpolation}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.sourceforge.collections</groupId>
 			<artifactId>collections-generic</artifactId>
+			<version>${version.sourceforge.collections}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<optional>true</optional>
+			<version>${version.junit}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
+			<version>${version.joda-time}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
+			<version>${version.opencsv}</version>
 		</dependency>
-		
+
 		<dependency>
-  			<groupId>com.google.guava</groupId>
-  			<artifactId>guava</artifactId>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${version.guava}</version>
 		</dependency>
-		
+
 		<!-- Needed by Log4jAppenderModel, imported by slf4j with scope runtime, but we need it to 
 		     build the project. We don't want to include it as a dependency though as not all
 		     project using JU will use the log4j appender
 		-->
-		 
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<optional>true</optional>
+			<version>${version.log4j}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
 		<dependency>
 			<groupId>org.jasypt</groupId>
 			<artifactId>jasypt</artifactId>
-<!-- 			<classifier>lite</classifier> -->
+			<version>${version.jasypt}</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>cglib</groupId>
-		    <artifactId>cglib</artifactId>
-		    <scope>test</scope>
-		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>javafx</groupId> -->
-<!-- 			<artifactId>javafx</artifactId> -->
-<!-- 			<optional>true</optional> -->
-<!-- 		</dependency> -->
-	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<!-- Generate Java classes from XML Schema
-					 Run with mvn jaxb2:generate
-					 
-					 For infos, see http://confluence.highsource.org/display/MJIIP/User+Guide
-				 -->
-				<groupId>org.jvnet.jaxb2.maven2</groupId>
-				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.8.3</version>
-				<configuration>
-					<schemas>
-						<schema>
-							<fileset>
-								<directory>src/test/resources</directory>
-								<includes>
-									<include>ch/inftec/ju/util/xml/jaxb/player.xsd</include>
-									<include>ch/inftec/ju/util/xml/ns/main.xsd</include>
-								</includes>
-							</fileset>
-						</schema>
-					</schemas>
-					
-					<generateDirectory>src/test/java</generateDirectory>
-					
-					<!-- Don't create Episode file -->
-					<episode>false</episode>
-<!-- 							<schemaDirectory>src/test/resources</schemaDirectory> -->
-					<!-- the package for the generated java classes -->
-<!-- 							<generatePackage>com.dimitrisli.jaxb.producedClasses</generatePackage> -->
-					<!-- If the following not specified all xsd in resources are included -->
-<!-- 							<schemaIncludes> -->
-<!-- 								<include>ch/inftec/ju/util/xml/jaxb/player.xsd</include> -->
-<!-- 							</schemaIncludes> -->
-					<!-- if you don't want old output -->
-<!-- 							<removeOldOutput>true</removeOldOutput> -->
-					<!-- if you want verbosity -->
-					<verbose>true</verbose>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<scope>test</scope>
+			<version>${version.cglib}</version>
+		</dependency>
+
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>javafx</groupId> -->
+		<!-- 			<artifactId>javafx</artifactId> -->
+		<!-- 			<optional>true</optional> -->
+		<!-- 		</dependency> -->
+	</dependencies>
 </project>

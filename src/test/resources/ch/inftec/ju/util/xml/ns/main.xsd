@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:inftec.ch/ju/util/xml/ns/main" xmlns:r="urn:inftec.ch/ju/util/xml/ns/ref" targetNamespace="urn:inftec.ch/ju/util/xml/ns/main" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="urn:inftec.ch/ju/util/xml/ns/ref" schemaLocation="ref.xsd"/>
+	<xs:element name="complexRoot">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string"/>
+				<xs:element name="age">
+						<xs:simpleType>
+							<xs:restriction base="xs:integer">
+								<xs:minInclusive value="10"/>
+							</xs:restriction>
+						</xs:simpleType>
+				</xs:element>
+				<xs:element name="refName" type="r:RefNameType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

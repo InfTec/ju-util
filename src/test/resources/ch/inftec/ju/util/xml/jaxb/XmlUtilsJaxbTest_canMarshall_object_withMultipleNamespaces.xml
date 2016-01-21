@@ -1,0 +1,8 @@
+<def:complexRoot xmlns:def="urn:inftec.ch/ju/util/xml/ns/main" xmlns:ns2="urn:inftec.ch/ju/util/xml/ns/ref">
+  <def:name>name</def:name>
+  <def:age>17</def:age>
+  <def:refName>
+    <ns2:firstName>firstName</ns2:firstName>
+    <ns2:lastName>lastName</ns2:lastName>
+  </def:refName>
+</def:complexRoot>

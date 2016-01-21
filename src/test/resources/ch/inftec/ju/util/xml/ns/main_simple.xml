@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<complexRoot xmlns:r="http://inftec.ch/ref" xmlns="http://inftec.ch/main" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://inftec.ch/main main.xsd">
+	<name>Name</name>
+	<age>10</age>
+	<refName>
+		<r:firstName>First</r:firstName>
+		<r:lastName>Last</r:lastName>
+	</refName>
+</complexRoot>

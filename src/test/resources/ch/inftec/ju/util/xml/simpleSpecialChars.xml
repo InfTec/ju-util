@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<element>
+		<childElement name="Child 1"/>
+		<childElement name="Child 2"/>
+		<textElement><![CDATA[This is a little text: äöü°+"*ç%&/()=?`è!éà£><;:_,.-]]></textElement>
+		<attrElement textFull="This is a little attr-text: äöü°+&quot;*ç%&amp;/()=?`è!éà£&gt;&lt;;:_,.-" textQuot="And &amp;"></attrElement>
+	</element>
+</root>

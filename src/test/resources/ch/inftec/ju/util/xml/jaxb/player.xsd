@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Martin Meyer (Swisscom (Schweiz) AG) -->
+<!-- Namespace inftec.ch/xxx/yyy will result in default package ch.inftec.xxx.yyy -->
+<!-- xmlns denotes the non-prefix namespace -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:inftec.ch/ju/util/xml/jaxb/player" targetNamespace="urn:inftec.ch/ju/util/xml/jaxb/player" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="player">
+		<xs:annotation>
+			<xs:documentation>Player Element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="firstName" type="xs:string"/>
+				<xs:element name="lastName" type="xs:string"/>
+				<xs:element name="salutation" type="SalutationType"/>
+				<xs:element name="age">
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:minInclusive value="1"/>
+							<xs:maxExclusive value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="SalutationType">
+		<xs:annotation>
+			<xs:documentation>Salutation Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Mr"/>
+			<xs:enumeration value="Ms"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

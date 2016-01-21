@@ -1,0 +1,6 @@
+<ns1:test xmlns:ns1="http://inftec.ch/ns1">
+  <child/>
+  <ns2:child xmlns:ns2="http://inftec.ch/ns2">
+    <ns1:child/>
+  </ns2:child>
+</ns1:test>

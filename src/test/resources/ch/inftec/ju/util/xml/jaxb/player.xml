@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<player xmlns="urn:inftec.ch/ju/util/xml/jaxb/player" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:inftec.ch/ju/util/xml/jaxb/player player.xsd">
+	<firstName>Michael</firstName>
+	<lastName>Jordan</lastName>
+	<salutation>Mr</salutation>
+	<age>30</age>
+</player>

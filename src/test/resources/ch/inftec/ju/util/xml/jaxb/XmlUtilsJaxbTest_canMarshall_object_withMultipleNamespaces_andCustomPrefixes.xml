@@ -1,0 +1,8 @@
+<m:complexRoot xmlns:m="urn:inftec.ch/ju/util/xml/ns/main" xmlns:r="urn:inftec.ch/ju/util/xml/ns/ref">
+  <m:name>name</m:name>
+  <m:age>17</m:age>
+  <m:refName>
+    <r:firstName>firstName</r:firstName>
+    <r:lastName>lastName</r:lastName>
+  </m:refName>
+</m:complexRoot>

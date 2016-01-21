@@ -1,0 +1,23 @@
+# Contains references and priorization of JU property files.
+# We will scan the whole classpath for files named ju.properties.files to load property files
+# See JuUtils.getJuPropertyChain for details.
+#
+# The entries in this file have the form '{priority},{type},{path}', e.g.
+#   1,prop,/my.properties
+#
+# Valid types are:
+#  - sys: System properties
+#  - prop: Properties file: {resourcePath}[,optional]
+#  - csv: CSV file: {resourcePath},{profileProperty}[,defaultColumn]
+#    - Default for defaultColumn is 'default'
+#    - Separator character is ';'
+#
+# Lines starting with # and empty lines will be ignored
+# Priorities must be unique
+# Resources must be unique as well
+# Placeholders like %keyName% are supported that will be evaluated using the already built property chain
+
+0,sys
+50,prop,ju_user.properties,optional
+51,prop,ju_profile-%ju-util.profile%.properties,optional
+99,prop,ju_default.properties

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<player xmlns="urn:inftec.ch/ju/util/xml/jaxb/player">
+    <firstName>Michael</firstName>
+    <lastName>Jordan</lastName>
+    <salutation>Mr</salutation>
+    <age>100</age> <!-- Too old according to Schema... -->
+</player>

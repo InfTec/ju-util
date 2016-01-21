@@ -29,7 +29,6 @@
 		<version.guava>14.0</version.guava>
 		<version.log4j>1.2.17</version.log4j>
 		<version.jasypt>1.9.1</version.jasypt>
-		<version.cglib>3.1</version.cglib>
 	</properties>
 
 	<url>https://git.inftec.ch/gitlab/ju/ju-util</url>
@@ -133,18 +132,5 @@
 			<artifactId>jasypt</artifactId>
 			<version>${version.jasypt}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<scope>test</scope>
-			<version>${version.cglib}</version>
-		</dependency>
-
-		<!-- 		<dependency> -->
-		<!-- 			<groupId>javafx</groupId> -->
-		<!-- 			<artifactId>javafx</artifactId> -->
-		<!-- 			<optional>true</optional> -->
-		<!-- 		</dependency> -->
 	</dependencies>
 </project>

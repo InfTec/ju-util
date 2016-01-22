@@ -1,9 +1,10 @@
 package ch.inftec.ju.util;
 
+import org.junit.Test;
+
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import org.junit.Test;
 
 public class JuCollectionUtilsTest {
 	@Test
@@ -19,5 +20,10 @@ public class JuCollectionUtilsTest {
 		
 		List<String> lRes = JuCollectionUtils.asList(iterable);
 		TestUtils.assertCollectionEquals(lRes, "A", "B");
+	}
+
+	@Test
+	public void equalCollection_collectionEquals_returnsTrue() {
+		Arrays.asList(1, 2);
 	}
 }

@@ -31,7 +31,7 @@
 		<version.jasypt>1.9.1</version.jasypt>
 	</properties>
 
-	<url>https://git.inftec.ch/gitlab/ju/ju-util</url>
+	<url>https://github.com/InfTec/ju-util</url>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -41,8 +41,8 @@
 	</licenses>
 
 	<scm>
-		<url>git@bitbucket.org:inftec/ju.git</url>
-		<connection>scm:git:git@bitbucket.org:inftec/ju.git</connection>
+		<url>https://github.com/InfTec/ju-util</url>
+		<connection>scm:git:git@github.com:InfTec/ju-util.git</connection>
 	</scm>
 
 	<developers>

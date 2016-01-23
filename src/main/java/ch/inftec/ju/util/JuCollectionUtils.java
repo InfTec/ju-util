@@ -1,14 +1,27 @@
 package ch.inftec.ju.util;
 
-import ch.inftec.ju.util.comparison.DefaultComparator;
-import ch.inftec.ju.util.comparison.EqualityTester;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
+
+import ch.inftec.ju.util.comparison.DefaultComparator;
+import ch.inftec.ju.util.comparison.EqualityTester;
 
 /**
  * Contains utility methods regarding collections, maps and the like.
@@ -40,12 +53,9 @@ public final class JuCollectionUtils {
 		if (m1.size() != m2.size()) return false;
 		
 		// Use DefaultComparator if tester is null
-		if (equalityTester == null) equalityTester = new DefaultComparator<V>();
-		
-		Iterator<K> kIterator = m1.keySet().iterator();
-		while (kIterator.hasNext()) {
-			K k = kIterator.next();
-			
+		if (equalityTester == null) equalityTester = new DefaultComparator<>();
+
+		for (K k : m1.keySet()) {
 			// Make sure m2 contains the key too
 			if (!m2.containsKey(k)) return false;
 			
@@ -76,8 +86,23 @@ public final class JuCollectionUtils {
 	 * @return True if the collections are equal, false otherwise
 	 */
 	public static <T> boolean collectionEquals(Collection<? extends T> c1, Collection<? extends T> c2) {
-		return false;
-		//return ListUtils.isEqualList(c1, c2);
+		// Handle special cases
+		if (c1 == c2) {
+			return true;
+		} else if (c1 == null || c2 == null) {
+			// Collections are not identical, so one of them will not be null...
+			return false;
+		} else if (c1.size() != c2.size()) {
+			return false;
+		} else {
+			// Collections are not null and have same length
+			for (int i = 0; i < c1.size(); i++) {
+				if (!ObjectUtils.equals(c1, c2)) return false;
+			}
+
+			// All elements are equal
+			return true;
+		}
 	}
 	
 	/**
@@ -136,10 +161,9 @@ public final class JuCollectionUtils {
 	 * Returns a map using the provided key (String or Object.toString) and
 	 * values (Object) pairs.
 	 * @param keyValuePairs Key value pairs
-	 * @return HashMap<String, Object> instance
 	 */
 	public static HashMap<String, Object> stringMap(Object... keyValuePairs) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> map = new HashMap<>();
 		
 		for (int i = 1; i < keyValuePairs.length; i+=2) {
 			Object obj = keyValuePairs[i-1];
@@ -266,7 +290,7 @@ public final class JuCollectionUtils {
 	 */
 	public static <T> List<T> asList(Collection<T> collection) {
 		if (collection instanceof List) return (List<T>)collection;
-		else return new ArrayList<T>(collection);
+		else return new ArrayList<>(collection);
 	}
 	
 	/**
@@ -291,7 +315,7 @@ public final class JuCollectionUtils {
 	 */
 	public static <T> ArrayList<T> asArrayList(Collection<T> collection) {
 		if (collection instanceof ArrayList) return (ArrayList<T>)collection;
-		else return new ArrayList<T>(collection);
+		else return new ArrayList<>(collection);
 	}
 	
 	/**
@@ -328,8 +352,7 @@ public final class JuCollectionUtils {
 	 * @return Sorted set
 	 */
 	public static <T> Set<T> asSortedSet(Collection<T> collection) {
-		Set<T> set = new TreeSet<>(collection);
-		return set;
+		return new TreeSet<>(collection);
 	}
 	
 	/**
@@ -339,8 +362,7 @@ public final class JuCollectionUtils {
 	 * @return Sorted set
 	 */
 	public static <T> Set<T> asSameOrderSet(Collection<T> collection) {
-		Set<T> set = new LinkedHashSet<>(collection);
-		return set;
+		return new LinkedHashSet<>(collection);
 	}
 	
 	/**
@@ -376,7 +398,7 @@ public final class JuCollectionUtils {
 	 * Creates a new instance of a WeakReferenceIterable.
 	 */
 	public static <E> WeakReferenceIterable<E> newWeakReferenceIterable() {
-		return new WeakReferenceIterableImpl<E>();
+		return new WeakReferenceIterableImpl<>();
 	}
 
 	static final class WeakReferenceIterableImpl<E> implements WeakReferenceIterable<E> {
@@ -445,7 +467,7 @@ public final class JuCollectionUtils {
 			
 			ReferenceWrapper(T ref, boolean weak, ReferenceQueue<T> queue, List<ReferenceWrapper<T>> list) {
 				if (weak) {
-					this.weakRef = new WeakReference<T>(ref, queue);
+					this.weakRef = new WeakReference<>(ref, queue);
 					this.strongRef = null;
 				} else {
 					this.strongRef = ref;

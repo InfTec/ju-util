@@ -14,6 +14,8 @@ public class JuCollectionUtilsTest {
 	private List<Integer> list12_copy = Arrays.asList(1, 2);
 	private List<Integer> list23 = Arrays.asList(2, 3);
 	private List<Integer> list123 = Arrays.asList(1, 2, 3);
+	private List<Integer> list21 = Arrays.asList(2, 1);
+	private List<Integer> list34 = Arrays.asList(3, 4);
 
 	@Test
 	public void iterator_asList() {
@@ -52,6 +54,54 @@ public class JuCollectionUtilsTest {
 
 	@Test
 	public void equalCollection_collectionEquals_returnsTrue() {
+		assertNotSame(list12, list12_copy);
+
 		assertTrue(JuCollectionUtils.collectionEquals(list12, list12_copy));
+	}
+
+	@Test
+	public void nonEqualCollectionDifferentLength_collectionEquals_returnsFalse() {
+		assertFalse(JuCollectionUtils.collectionEquals(list12, list123));
+	}
+
+	@Test
+	public void nonEqualCollectionSameLength_collectionEquals_returnsFalse() {
+		assertFalse(JuCollectionUtils.collectionEquals(list12, list23));
+	}
+
+	@Test
+	public void collectionWithSameItemsDifferentOrder_collectionEquals_returnsFalse() {
+		assertFalse(JuCollectionUtils.collectionEquals(list12, list21));
+	}
+
+	@Test
+	public void collectionWithSameItemsDifferentOrder_collectionEqualsIgnoreOrder_returnsTrue() {
+		assertTrue(JuCollectionUtils.collectionEqualsIgnoreOrder(list12, list21));
+	}
+
+	@Test
+	public void nullParameter_intersection_returnsEmptyList() {
+		assertTrue(JuCollectionUtils.intersection(null, list12).isEmpty());
+	}
+
+	@Test
+	public void sameCollection_intersection_returnsNewList() {
+		List<Integer> intersection = JuCollectionUtils.intersection(list12, list12);
+
+		assertNotSame(list12, intersection);
+		assertTrue(JuCollectionUtils.collectionEquals(list12, intersection));
+	}
+
+	@Test
+	public void nonOverlappingCollections_intersection_returnsEmptyList() {
+		assertTrue(JuCollectionUtils.intersection(list12, list34).isEmpty());
+	}
+
+	@Test
+	public void overlappingCollections_intersection_returnsOverlappingItems() {
+		List<Integer> intersection = JuCollectionUtils.intersection(list12, list123);
+
+		assertNotSame(list12, intersection);
+		assertTrue(JuCollectionUtils.collectionEquals(list12, intersection));
 	}
 }

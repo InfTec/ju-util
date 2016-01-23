@@ -96,8 +96,12 @@ public final class JuCollectionUtils {
 			return false;
 		} else {
 			// Collections are not null and have same length
-			for (int i = 0; i < c1.size(); i++) {
-				if (!ObjectUtils.equals(c1, c2)) return false;
+
+			// Convert the collections to List to have indexed access...
+			List<? extends T> l1 = asList(c1);
+			List<? extends T> l2 = asList(c2);
+			for (int i = 0; i < l1.size(); i++) {
+				if (!ObjectUtils.equals(l1.get(i), l2.get(i))) return false;
 			}
 
 			// All elements are equal
@@ -113,8 +117,30 @@ public final class JuCollectionUtils {
 	 * @return True if both collections contain the same elements in arbitrary order
 	 */
 	public static <T> boolean collectionEqualsIgnoreOrder(List<T> c1, List<T> c2) {
-		return false;
-		//return ListUtils.intersection(JuCollectionUtils.asList(c1), JuCollectionUtils.asList(c2)).size() == c1.size();
+		return intersection(JuCollectionUtils.asList(c1), JuCollectionUtils.asList(c2)).size() == c1.size();
+	}
+
+	/**
+	 * Returns the intersection of the two specified collections, i.e. a new collection that contains all elements
+	 * that are present in both collections.
+	 * @return List containing all elements present in both collections. In case of a no match (or null parameters given),
+	 * an empty list is returned. This method always returns a new collection, even if the result is equal to one of the input collections
+	 */
+	public static <T> List<T> intersection(Collection<? extends T> c1, Collection<? extends T> c2) {
+		// Null handling
+		if (c1 == null || c2 == null) {
+			return Collections.emptyList();
+		}
+
+		List<T> intersection = new ArrayList<>();
+
+		for (T item : c1) {
+			if (collectionContains(c2, item)) {
+				intersection.add(item);
+			}
+		}
+
+		return intersection;
 	}
 	
 	/**
@@ -125,7 +151,7 @@ public final class JuCollectionUtils {
 	 * @param values Values the collection must contain, in arbitrary order
 	 */
 	@SafeVarargs
-	public static <T> boolean collectionContains(Collection<T> cCollection, T... values) {
+	public static <T> boolean collectionContains(Collection<? extends T> cCollection, T... values) {
 		for (T val : values) {
 			if (!cCollection.contains(val)) return false;
 		}

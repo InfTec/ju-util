@@ -1,17 +1,15 @@
 package ch.inftec.ju.util.xml;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -252,24 +250,25 @@ public class XmlUtilsTest {
 	
 	@Test
 	public void canConvertDate_toGregorianCalendar() {
-		LocalDate lt = new LocalDate(2000, 1, 2);
-		DateMidnight dm = lt.toDateMidnight(DateTimeZone.UTC);
-		
-		XMLGregorianCalendar gc = XmlUtils.asXMLGregorianCalendar(dm.toDate());
+		XMLGregorianCalendar gc = XmlUtils.asXMLGregorianCalendar(getTestDateUtc_2000_1_2_mignidht());
 		Assert.assertEquals("2000-01-02T00:00:00.000Z", gc.toXMLFormat());
 	}
-	
+
+	private Date getTestDateUtc_2000_1_2_mignidht() {
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		cal.set(2000, Calendar.JANUARY, 2, 0, 0, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+
+		return cal.getTime();
+	}
+
 	@Test
 	public void canConvert_GregorianCalendar_toDate() {
-		LocalDate lt = new LocalDate(2000, 1, 2);
-		DateMidnight dm = lt.toDateMidnight(DateTimeZone.UTC);
-		
-		Date d = dm.toDate();
-		
-		XMLGregorianCalendar gc = XmlUtils.asXMLGregorianCalendar(d);
+		Date testDate = getTestDateUtc_2000_1_2_mignidht();
+		XMLGregorianCalendar gc = XmlUtils.asXMLGregorianCalendar(testDate);
 		Date dConv = XmlUtils.asDate(gc);
 		
-		Assert.assertEquals(d, dConv);
+		Assert.assertEquals(testDate, dConv);
 	}
 	
 	@Test

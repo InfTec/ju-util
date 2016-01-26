@@ -34,8 +34,8 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.inftec.ju.util.function.JuPredicates;
 import ch.inftec.ju.util.function.Predicate;
+import ch.inftec.ju.util.function.Predicates;
 import ch.inftec.ju.util.io.NewLineReader;
 
 /**
@@ -331,7 +331,7 @@ public final class IOUtil {
 	 * @return List of all files in the directory (recursively)
 	 */
 	public static List<Path> listFiles(Path parentDir) {
-		return IOUtil.listFiles(parentDir, JuPredicates.ALWAYS_TRUE);
+		return IOUtil.listFiles(parentDir, Predicates.ALWAYS_TRUE);
 	}
 
 	/**

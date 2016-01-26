@@ -62,6 +62,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${version.slf4j}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -103,8 +104,8 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<optional>true</optional>
 			<version>${version.log4j}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

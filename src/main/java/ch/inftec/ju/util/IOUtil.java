@@ -30,13 +30,13 @@ import java.util.jar.Manifest;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.inftec.ju.util.function.JuPredicates;
+import ch.inftec.ju.util.function.Predicate;
 import ch.inftec.ju.util.io.NewLineReader;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 /**
  * Utility class containing I/O related helper methods. Methods that depend on a charset
@@ -108,7 +108,6 @@ public final class IOUtil {
 	
 	/**
 	 * Creates a new IOUtil instance with the specified charset.
-	 * @param charset
 	 */
 	public IOUtil(String charset) {
 		this.charset = charset;
@@ -332,7 +331,7 @@ public final class IOUtil {
 	 * @return List of all files in the directory (recursively)
 	 */
 	public static List<Path> listFiles(Path parentDir) {
-		return IOUtil.listFiles(parentDir, Predicates.<Path>alwaysTrue());
+		return IOUtil.listFiles(parentDir, JuPredicates.ALWAYS_TRUE);
 	}
 
 	/**
@@ -344,7 +343,7 @@ public final class IOUtil {
 	public static List<Path> listFiles(Path parentDir, final String ending) {
 		return IOUtil.listFiles(parentDir, new Predicate<Path>() {
 			@Override
-			public boolean apply(Path input) {
+			public boolean test(Path input) {
 				return input.getFileName().toString().endsWith(ending);
 			}
 		});
@@ -363,7 +362,7 @@ public final class IOUtil {
 			Files.walkFileTree(parentDir, new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-					if (predicate.apply(file)) files.add(file);
+					if (predicate.test(file)) files.add(file);
 					
 					return FileVisitResult.CONTINUE;
 				}
@@ -407,7 +406,6 @@ public final class IOUtil {
 		 * 
 		 * @param noExceptions
 		 *            False if builder should throw exceptions
-		 * @return
 		 */
 		public ExistsBuilder noExceptions(boolean noExceptions) {
 			this.noExceptions = noExceptions;
@@ -425,7 +423,7 @@ public final class IOUtil {
 		 */
 		public boolean file(String path) {
 			try {
-				Path filePath = null;
+				Path filePath;
 				if (path.toLowerCase().startsWith("file:")) {
 					// Use URL class to get Path
 					filePath = JuUrl.toPath(new URL(path));
@@ -479,11 +477,9 @@ public final class IOUtil {
 	 *             If the resource cannot be loaded
 	 */
 	public String loadTextFromUrl(URL url, String... replacements) {
+		Validate.notNull(url, "Cannot load text from null URL");
+
 		try {
-			if (url == null) {
-				throw new JuRuntimeException("Resource not found: " + url);
-			}
-			
 			try (Reader reader = this.createReader(url)) {
 			
 				StringBuilder sb = new StringBuilder();
@@ -514,11 +510,10 @@ public final class IOUtil {
 	 */
 	public BufferedReader createReader(URL url) {
 		try {
-			BufferedReader reader = new BufferedReader(
+			return new BufferedReader(
 					new NewLineReader(
 						new InputStreamReader(url.openStream(), this.charset)
 							, null, NewLineReader.LF));
-			return reader;
 		} catch (Exception ex) {
 			throw new JuRuntimeException("Couldn't create reader for URL " + url, ex);
 		}
@@ -526,7 +521,6 @@ public final class IOUtil {
 
 	/**
 	 * Loads properties from the specified URL.
-	 * @param url
 	 * @return Properties
 	 * @throws JuException If loading fails
 	 */
@@ -552,8 +546,7 @@ public final class IOUtil {
 	 */
 	public static Manifest loadManifestFromUrl(URL url) throws JuException {
 		try (BufferedInputStream in = new BufferedInputStream(url.openStream())) {
-			Manifest manifest = new Manifest(in);
-			return manifest;
+			return new Manifest(in);
 		} catch (Exception ex) {
 			throw new JuException("Couldn't load manifest from URL: " + url, ex);
 		}
@@ -605,8 +598,7 @@ public final class IOUtil {
 				IOUtil.createFile(file, overwrite);
 			}
 						
-			BufferedWriter w = Files.newBufferedWriter(file, Charset.forName(this.charset), openOption);
-			return w;
+			return Files.newBufferedWriter(file, Charset.forName(this.charset), openOption);
 		} catch (JuException ex) {
 			throw ex;
 		} catch (Exception ex) {

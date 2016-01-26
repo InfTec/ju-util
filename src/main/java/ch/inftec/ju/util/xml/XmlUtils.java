@@ -8,7 +8,6 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutionException;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -42,10 +41,9 @@ import ch.inftec.ju.util.AssertUtil;
 import ch.inftec.ju.util.IOUtil;
 import ch.inftec.ju.util.JuException;
 import ch.inftec.ju.util.JuRuntimeException;
-
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import ch.inftec.ju.util.collection.Cache;
+import ch.inftec.ju.util.collection.Caches;
+import ch.inftec.ju.util.function.Function;
 
 /**
  * Utility class containing XML related helper methods.
@@ -152,7 +150,7 @@ public class XmlUtils {
 	/**
 	 * Loads and parses an XML into a DOM structure.
 	 * 
-	 * @param xmlStream
+	 * @param xmlSource
 	 *            InputStream of the XML
 	 * @param schema
 	 *            Optional Schema. If null, no validation is performed
@@ -236,9 +234,7 @@ public class XmlUtils {
 		
 		try {
 			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = schemaFactory.newSchema(url);
-
-			return schema;
+			return schemaFactory.newSchema(url);
 		} catch (Exception ex) {
 			throw new JuRuntimeException("Couldn't load XML schema: " + url, ex);
 		}
@@ -278,11 +274,11 @@ public class XmlUtils {
 			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, (includeXmlDeclaration ? "no" : "yes"));
 			
 			if (indent) {
-				transformer.setOutputProperty(OutputKeys.INDENT, (indent ? "yes" : "no"));
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			}
 			
-			try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
+			try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
 				transformer.transform(new DOMSource(document), new StreamResult(os));
 				return new String(os.toByteArray(), "UTF-8");
 			}			
@@ -337,7 +333,6 @@ public class XmlUtils {
     
     /**
      * Returns a MarshallerBuilder that can be used to perform XML marshalling and unmarshalling.
-     * @return
      */
     public static MarshallerBuilder marshaller() {
     	return new MarshallerBuilder();
@@ -347,8 +342,8 @@ public class XmlUtils {
     	private final Logger logger = LoggerFactory.getLogger(MarshallerBuilder.class);
     	
     	private boolean cacheJaxbContext = true;
-    	private static LoadingCache<String, JAXBContext> cache;
-    	private static long MAX_CACHE_SIZE = 100L;
+    	private static Cache<String, JAXBContext> cache;
+    	private static int MAX_CACHE_SIZE = 100;
     	
     	private boolean formattedOutput = false;
     	private Schema schema;
@@ -361,7 +356,6 @@ public class XmlUtils {
     	 * <p>
     	 * Default is false.
     	 * @param formattedOutput If true, XML output will be formatted / indented.
-    	 * @return
     	 */
     	public MarshallerBuilder formattedOutput(boolean formattedOutput) {
     		this.formattedOutput = formattedOutput;
@@ -372,7 +366,6 @@ public class XmlUtils {
     	 * Specifies an XML Schema to be used to validate the XML when marshalling or
     	 * unmarshalling.
     	 * @param schemaUrl URL to XML Schema (XSD)
-    	 * @return
     	 */
     	public MarshallerBuilder schema(URL schemaUrl) {
     		this.schema = XmlUtils.loadSchema(schemaUrl);
@@ -399,7 +392,6 @@ public class XmlUtils {
 		 * </pre>
     	 * @param prefix Namespace prefix, e.g. 'ns'. Use null for default namespace
     	 * @param namespaceUri Namespace URI, e.g. 'urn:inftec.ch/ns'
-    	 * @return
     	 */
     	public MarshallerBuilder setNamespacePrefix(String prefix, String namespaceUri) {
     		if (this.prefixMapper == null) {
@@ -414,8 +406,6 @@ public class XmlUtils {
     	/**
     	 * Sets a NamespacePrefixMapper adapter. This can/must be used if the JAXB implementation in use is not compatible
     	 * with the JAXB implementation used by JU.
-    	 * @param prefixMapperAdapter
-    	 * @return
     	 */
     	public MarshallerBuilder setNamespacePrefixMapper(NamespacePrefixMapperAdapter prefixMapperAdapter) {
     		this.prefixMapperAdapter = prefixMapperAdapter;
@@ -484,7 +474,6 @@ public class XmlUtils {
          * initialize the JAXBContext.
          * @return Unmarshalled object. If by unmarshalling, we get a JAXBElement, the actual object
          * will be unwrapped and returned
-         * @throws ServiceDbException If the unmarshalling fails
          */
         public Object unmarshalRaw(String xmlString, Class<?> objClass) {
             try (StringReader reader = new StringReader(xmlString)) {
@@ -510,35 +499,34 @@ public class XmlUtils {
         private JAXBContext loadContext(String contextPath) throws JAXBException {
         	if (this.cacheJaxbContext) {
         		// We'll cache the JAXBContext to avoid loading it every time we need it.
-        		// JAXBContext is ThreadSave, but we'll need to create a separate Marshaller / Unmarshaller
-        		// every time we do marshalling / unmarshalling and must not use the
+				// JAXBContext is ThreadSave, but we'll need to create a separate Marshaller / Unmarshaller
+				// every time we do marshalling / unmarshalling and must not use the
         		// convenience method context.marshal / unmarshal.
         		synchronized(this) {
 	        		if (cache == null) {
-	        			cache = CacheBuilder.newBuilder()
-		        			.maximumSize(MAX_CACHE_SIZE)
-		        			.build(new CacheLoader<String, JAXBContext>() {
+						cache = Caches.simpleBoundedCache(MAX_CACHE_SIZE, new Function<String, JAXBContext>() {
 								@Override
-								public JAXBContext load(String key) throws Exception {
+								public JAXBContext apply(String key) {
 									return createContext(key);
 								}
 		        			});
 	        		}
 	        	}
-        		
-        		try {
-        			return cache.get(contextPath);
-        		} catch (ExecutionException ex) {
-        			throw new JuRuntimeException("Couldn't load new JAXBContext for %s", ex, contextPath);
-        		}
+
+				return cache.get(contextPath);
         	} else {
         		return createContext(contextPath);
         	}
         }
         
-        private JAXBContext createContext(String contextPath) throws JAXBException {
+        private JAXBContext createContext(String contextPath) {
         	logger.debug("Creating JAXBContext for path {}", contextPath);
-        	return JAXBContext.newInstance(contextPath);
+
+			try {
+				return JAXBContext.newInstance(contextPath);
+			} catch (JAXBException ex) {
+				throw new JuRuntimeException("Couldn't create JAXB context", ex);
+			}
         }
         
         /**
@@ -546,7 +534,6 @@ public class XmlUtils {
          * @param xmlString XML string to be unmarshalled
          * @param objClass Expected Object class used to build JAXBContext and evaluate validation Schema
          * @return Unmarshalled object
-         * @throws ServiceDbException If the unmarshalling fails
          * @param <T> Type of expected object
          */
         public <T> T unmarshal(String xmlString, Class<T> objClass) {
@@ -561,7 +548,6 @@ public class XmlUtils {
          * @param xmlUrl URL to XML to be unmarshalled
          * @param objClass Expected Object class used to build JAXBContext and evaluate validation Schema
          * @return Unmarshalled object
-         * @throws ServiceDbException If the unmarshalling fails
          * @param <T> Type of expected object
          */
         public <T> T unmarshal(URL xmlUrl, Class<T> objClass) {
@@ -581,9 +567,8 @@ public class XmlUtils {
         public interface NamespacePrefixMapperAdapter {
         	/**
         	 * Gets the property name for the NamespacePrefixMapper property of the JAXB marshaller.
-        	 * @return
         	 */
-        	public String getPropertyName();
+        	String getPropertyName();
         	
         	/**
         	 * Gets an implementation of the NamespacePrefixMapper.
@@ -593,14 +578,14 @@ public class XmlUtils {
         	 * @param prefixMapper JU specific Prefix mapper
         	 * @return JAXB implementation specific mapper
         	 */
-        	public Object getNamespacePrefixMapperImplementation(PrefixMapper prefixMapper);
-        	
+        	Object getNamespacePrefixMapperImplementation(PrefixMapper prefixMapper);
+
         	/**
         	 * JU specific prefix mapper.
         	 * @author Martin Meyer <martin.meyer@inftec.ch>
         	 *
         	 */
-        	public interface PrefixMapper {
+        	interface PrefixMapper {
         		/**
         		 * Evaluates the preferred prefix
         		 * @param namespaceUri XSD namespace URI

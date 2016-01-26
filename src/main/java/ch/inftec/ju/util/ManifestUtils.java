@@ -9,11 +9,10 @@ import java.util.Map.Entry;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import ch.inftec.ju.util.function.Function;
+import ch.inftec.ju.util.function.Predicate;
 import ch.inftec.ju.util.helper.FindHelperBuilder;
 import ch.inftec.ju.util.helper.FindNoneHelper;
-
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 
 /**
  * Helper class to find and read manifest files (<code>META-INF/MANIFEST.MF</code>).
@@ -69,7 +68,7 @@ public class ManifestUtils {
 			
 			this.filterManifests(new Predicate<Entry<URL, Manifest>>() {
 				@Override
-				public boolean apply(Entry<URL, Manifest> e) {
+				public boolean test(Entry<URL, Manifest> e) {
 					Attributes attrs = e.getValue().getMainAttributes();
 					String val = attrs.getValue(attributeName);
 					return ru.matches(val);
@@ -90,7 +89,7 @@ public class ManifestUtils {
 			
 			this.filterManifests(new Predicate<Entry<URL, Manifest>>() {
 				@Override
-				public boolean apply(Entry<URL, Manifest> e) {
+				public boolean test(Entry<URL, Manifest> e) {
 					URL url = e.getKey();
 					
 					if ("jar".equals(url.getProtocol())) {
@@ -112,7 +111,7 @@ public class ManifestUtils {
 		
 		private void filterManifests(Predicate<Entry<URL, Manifest>> keep) {
 			for (Iterator<Entry<URL, Manifest>> iterator = this.manifests.entrySet().iterator(); iterator.hasNext(); ) {
-				if (!keep.apply(iterator.next())) {
+				if (!keep.test(iterator.next())) {
 					iterator.remove();
 				}
 			}

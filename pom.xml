@@ -25,7 +25,6 @@
 		<version.plexus.interpolation>1.19</version.plexus.interpolation>
 		<version.junit>4.11</version.junit>
 		<version.opencsv>2.0</version.opencsv>
-		<version.guava>14.0</version.guava>
 		<version.log4j>1.2.17</version.log4j>
 		<version.jasypt>1.9.1</version.jasypt>
 	</properties>
@@ -96,13 +95,7 @@
 			<version>${version.opencsv}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${version.guava}</version>
-		</dependency>
-
-		<!-- Needed by Log4jAppenderModel, imported by slf4j with scope runtime, but we need it to 
+		<!-- Needed by Log4jAppenderModel, imported by slf4j with scope runtime, but we need it to
 		     build the project. We don't want to include it as a dependency though as not all
 		     project using JU will use the log4j appender
 		-->

@@ -3,8 +3,7 @@ package ch.inftec.ju.util.context;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import ch.inftec.ju.util.JuCollectionUtils;

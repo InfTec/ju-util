@@ -1,6 +1,6 @@
 package ch.inftec.ju.util;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

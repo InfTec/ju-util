@@ -3,10 +3,10 @@ package ch.inftec.ju.util;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
+import ch.inftec.ju.util.io.LineIterator;
 import ch.inftec.ju.util.io.NewLineReader;
 
 /**
@@ -19,7 +19,7 @@ import ch.inftec.ju.util.io.NewLineReader;
  *
  */
 public class XString {
-	private ArrayList<Line> lines = new ArrayList<Line>();
+	private ArrayList<Line> lines = new ArrayList<>();
 	
 	private String s;
 	
@@ -121,7 +121,7 @@ public class XString {
 	public XString newClonedInstance() {
 		XString xs = this.newEmptyInstance();
 		xs.s = this.s;
-		xs.lines = new ArrayList<Line>();
+		xs.lines = new ArrayList<>();
 		
 		// We have to deep copy all lines as they might contain place holder information that
 		// could get changed later and would affect both strings if we only created
@@ -202,7 +202,6 @@ public class XString {
 	/**
 	 * Adds some text to the last line. If there are no lines, a new one is created.
 	 * If the text is null, nothing is added.
-	 * @param text
 	 */
 	public void addText(String text) {
 		this.getLastLine().addText(text);
@@ -414,7 +413,7 @@ public class XString {
 	 * @return Placeholders within the string
 	 */
 	public String[] getPlaceHolders() {
-		ArrayList<String> placeHolders = new ArrayList<String>();
+		ArrayList<String> placeHolders = new ArrayList<>();
 		String s = this.toString();
 		int plLength = this.getPlaceHolderDelimiter().length();
 		
@@ -439,7 +438,7 @@ public class XString {
 			}
 		}
 
-		return (String[])placeHolders.toArray(new String[0]);
+		return placeHolders.toArray(new String[placeHolders.size()]);
 	}
 	
 	/**
@@ -510,11 +509,7 @@ public class XString {
 	 * @return True if the instance is empty, false otherwise
 	 */
 	public boolean isEmpty() {
-		if (this.getLineCount() == 1) {
-			return this.toString().isEmpty();
-		} else {
-			return false;
-		}
+		return this.getLineCount() == 1 && this.toString().isEmpty();
 	}
 	
 	/**
@@ -538,9 +533,9 @@ public class XString {
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 		
-		String s = null;
+		String s;
 		if (obj instanceof XString) {
-			s = ((XString)obj).toString();
+			s = obj.toString();
 		} else if (obj instanceof String) {
 			s = (String)obj;
 		} else {

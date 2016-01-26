@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import org.apache.commons.io.LineIterator;
 import org.junit.Assert;
 import org.junit.Test;
 

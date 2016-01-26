@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -28,7 +30,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -58,7 +59,18 @@ public final class IOUtil {
 	private static String defaultCharset = null;
 	
 	private static int tempFileCounter = 0;
-	
+
+	/**
+	 * The Unix line separator string.
+	 */
+	public static final String LINE_SEPARATOR_UNIX = "\n";
+
+	/**
+	 * The default buffer size to use for
+	 * {@link #copyLarge(Reader, Writer)}
+	 */
+	private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
+
 	/**
 	 * The Charset used by the IOUtil instance. If not submitted with the constructor, the
 	 * defaultCharset will be used.
@@ -161,11 +173,117 @@ public final class IOUtil {
 	 * @throws JuRuntimeException If the conversion fails
 	 */
 	public static String toString(Reader reader) {
+		StringWriter stringWriter = new StringWriter();
+
 		try {
-			return IOUtils.toString(reader);
+			copy(reader, stringWriter);
+			return stringWriter.toString();
 		} catch (Exception ex) {
 			throw new JuRuntimeException("Couldn't generate String for Reader", ex);
 		}
+	}
+
+	/**
+	 * Copy bytes from an <code>InputStream</code> to an
+	 * <code>OutputStream</code>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedInputStream</code>.
+	 * <p>
+	 * Large streams (over 2GB) will return a bytes copied value of
+	 * <code>-1</code> after the copy has completed since the correct
+	 * number of bytes cannot be returned as an int. For large streams
+	 * use the <code>copyLarge(InputStream, OutputStream)</code> method.
+	 *
+	 * @param input  the <code>InputStream</code> to read from
+	 * @param output  the <code>OutputStream</code> to write to
+	 * @return the number of bytes copied, or -1 if &gt; Integer.MAX_VALUE
+	 * @throws NullPointerException if the input or output is null
+	 * @throws IOException if an I/O error occurs
+	 * @since Commons IO 1.1
+	 */
+	public static int copy(InputStream input, OutputStream output) throws IOException {
+		long count = copyLarge(input, output);
+		if (count > Integer.MAX_VALUE) {
+			return -1;
+		}
+		return (int) count;
+	}
+
+	/**
+	 * Copy bytes from a large (over 2GB) <code>InputStream</code> to an
+	 * <code>OutputStream</code>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedInputStream</code>.
+	 *
+	 * @param input  the <code>InputStream</code> to read from
+	 * @param output  the <code>OutputStream</code> to write to
+	 * @return the number of bytes copied
+	 * @throws NullPointerException if the input or output is null
+	 * @throws IOException if an I/O error occurs
+	 * @since Commons IO 1.3
+	 */
+	public static long copyLarge(InputStream input, OutputStream output)
+			throws IOException {
+		byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+		long count = 0;
+		int n;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
+		}
+		return count;
+	}
+
+	/**
+	 * Copy chars from a <code>Reader</code> to a <code>Writer</code>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedReader</code>.
+	 * <p>
+	 * Large streams (over 2GB) will return a chars copied value of
+	 * <code>-1</code> after the copy has completed since the correct
+	 * number of chars cannot be returned as an int. For large streams
+	 * use the <code>copyLarge(Reader, Writer)</code> method.
+	 *
+	 * @param input  the <code>Reader</code> to read from
+	 * @param output  the <code>Writer</code> to write to
+	 * @return the number of characters copied, or -1 if &gt; Integer.MAX_VALUE
+	 * @throws NullPointerException if the input or output is null
+	 * @throws IOException if an I/O error occurs
+	 * @since Commons IO 1.1
+	 */
+	public static int copy(Reader input, Writer output) throws IOException {
+		long count = copyLarge(input, output);
+		if (count > Integer.MAX_VALUE) {
+			return -1;
+		}
+		return (int) count;
+	}
+
+	/**
+	 * Copy chars from a large (over 2GB) <code>Reader</code> to a <code>Writer</code>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedReader</code>.
+	 *
+	 * @param input  the <code>Reader</code> to read from
+	 * @param output  the <code>Writer</code> to write to
+	 * @return the number of characters copied
+	 * @throws NullPointerException if the input or output is null
+	 * @throws IOException if an I/O error occurs
+	 * @since Commons IO 1.3
+	 */
+	public static long copyLarge(Reader input, Writer output) throws IOException {
+		char[] buffer = new char[DEFAULT_BUFFER_SIZE];
+		long count = 0;
+		int n;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
+		}
+		return count;
 	}
 
 	/**
@@ -177,7 +295,7 @@ public final class IOUtil {
 		if (s == null) {
 			return null;
 		} else {
-			NewLineReader reader = new NewLineReader(new StringReader(s), null, IOUtils.LINE_SEPARATOR_UNIX);
+			NewLineReader reader = new NewLineReader(new StringReader(s), null, LINE_SEPARATOR_UNIX);
 			return IOUtil.toString(reader);
 		}
 	}
@@ -609,5 +727,65 @@ public final class IOUtil {
 	@Override
 	public String toString() {
 		return JuStringUtils.toString(this, "charset", this.charset);
+	}
+
+	/**
+	 * Unconditionally close a <code>Closeable</code>.
+	 * <p>
+	 * Equivalent to {@link Closeable#close()}, except any exceptions will be ignored.
+	 * This is typically used in finally blocks.
+	 * <p>
+	 * Example code:
+	 * <pre>
+	 *   Closeable closeable = null;
+	 *   try {
+	 *       closeable = new FileReader("foo.txt");
+	 *       // process closeable
+	 *       closeable.close();
+	 *   } catch (Exception e) {
+	 *       // error handling
+	 *   } finally {
+	 *       IOUtils.closeQuietly(closeable);
+	 *   }
+	 * </pre>
+	 *
+	 * @param closeable the object to close, may be null or already closed
+	 * @since Commons IO 2.0
+	 */
+	public static void closeQuietly(Closeable closeable) {
+		try {
+			if (closeable != null) {
+				closeable.close();
+			}
+		} catch (IOException ioe) {
+			// ignore
+		}
+	}
+
+	/**
+	 * Unconditionally close an <code>Reader</code>.
+	 * <p>
+	 * Equivalent to {@link Reader#close()}, except any exceptions will be ignored.
+	 * This is typically used in finally blocks.
+	 * <p>
+	 * Example code:
+	 * <pre>
+	 *   char[] data = new char[1024];
+	 *   Reader in = null;
+	 *   try {
+	 *       in = new FileReader("foo.txt");
+	 *       in.read(data);
+	 *       in.close(); //close errors are handled
+	 *   } catch (Exception e) {
+	 *       // error handling
+	 *   } finally {
+	 *       IOUtils.closeQuietly(in);
+	 *   }
+	 * </pre>
+	 *
+	 * @param input  the Reader to close, may be null or already closed
+	 */
+	public static void closeQuietly(Reader input) {
+		closeQuietly((Closeable)input);
 	}
 }

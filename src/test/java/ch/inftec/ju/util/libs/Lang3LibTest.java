@@ -2,12 +2,11 @@ package ch.inftec.ju.util.libs;
 
 import java.util.HashMap;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.junit.Assert;
 import org.junit.Test;
 
 import ch.inftec.ju.util.TestUtils;
@@ -20,7 +19,7 @@ import ch.inftec.ju.util.TestUtils;
 public class Lang3LibTest {
 	@Test
 	public void toStringBuilder() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		HashMap<String, Integer> map = new HashMap<>();
 		map.put("one", 1);
 		map.put("two", 2);
 		
@@ -39,8 +38,8 @@ public class Lang3LibTest {
 	
 	@Test
 	public void equalsBuilder() {
-		HashMap<String, Integer> map1 = new HashMap<String, Integer>();
-		HashMap<String, Integer> map2 = new HashMap<String, Integer>();
+		HashMap<String, Integer> map1 = new HashMap<>();
+		HashMap<String, Integer> map2 = new HashMap<>();
 		
 		map1.put("one", 1);
 		map2.put("one", 1);

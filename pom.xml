@@ -21,7 +21,6 @@
 	<properties>
 		<version.slf4j>1.7.5</version.slf4j>
 		<version.apache.commons.lang>3.1</version.apache.commons.lang>
-		<version.apache.commons.io>2.1</version.apache.commons.io>
 		<version.plexus.interpolation>1.19</version.plexus.interpolation>
 		<version.junit>4.11</version.junit>
 		<version.opencsv>2.0</version.opencsv>
@@ -69,12 +68,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.apache.commons.lang}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${version.apache.commons.io}</version>
 		</dependency>
 
 		<dependency>

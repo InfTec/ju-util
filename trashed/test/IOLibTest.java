@@ -2,7 +2,7 @@ package ch.inftec.ju.util.libs;
 
 import java.io.StringReader;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.io.LineIterator;
 import org.junit.Test;

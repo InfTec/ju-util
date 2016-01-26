@@ -1,7 +1,6 @@
 package ch.inftec.ju.util.general;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import ch.inftec.ju.util.event.JuEventUtils;

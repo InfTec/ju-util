@@ -1,7 +1,6 @@
 package ch.inftec.ju.util.event;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import ch.inftec.ju.util.event.JuEventUtils.TestUpdateListener;
@@ -76,8 +75,8 @@ public class EventTest {
 		Assert.assertNull(updateListener.getLastSource());
 		Assert.assertEquals(0, updateListener.getCalls());
 		
-		updateListener.updated(new JuEventObject<EventSender>(new EventSender(0)));
-		updateListener.updated(new JuEventObject<EventSender>(new EventSender(1)));
+		updateListener.updated(new JuEventObject<>(new EventSender(0)));
+		updateListener.updated(new JuEventObject<>(new EventSender(1)));
 		Assert.assertEquals(2, updateListener.getCalls());
 		
 		updateListener.updated(null);
@@ -86,7 +85,7 @@ public class EventTest {
 			updateListener.assertOneCall();
 			Assert.fail("Was called twice");
 		} catch (AssertionError ex) {
-			
+			// Expected
 		}
 	}
 	

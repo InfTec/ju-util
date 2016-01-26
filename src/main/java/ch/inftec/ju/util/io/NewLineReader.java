@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -44,8 +43,8 @@ public class NewLineReader extends Reader {
 	 * This will already contain the converted output NewLines (if different
 	 * from the input NewLines).
 	 */
-	private Queue<Character> queue = new LinkedList<Character>();
-	
+	private Queue<Character> queue = new LinkedList<>();
+
 	/**
 	 * Reader the NewLineReader works with.
 	 */
@@ -126,7 +125,7 @@ public class NewLineReader extends Reader {
 		int lastIndex = off + len - 1;
 		
 		while (i <= lastIndex && this.queue.size() > 0) {
-			cbuf[i] = this.queue.poll().charValue();
+			cbuf[i] = this.queue.poll();
 			i++;
 		}
 		

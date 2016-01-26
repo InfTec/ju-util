@@ -3,8 +3,7 @@ package ch.inftec.ju.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -44,6 +43,6 @@ public class JuBeanUtilsTest {
 		protected String s2;
 		public List<String> sList;
 		
-		public String getS1() {return s1;};
+		public String getS1() {return s1;}
 	}
 }

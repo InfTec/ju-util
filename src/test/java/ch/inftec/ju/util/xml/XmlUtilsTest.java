@@ -9,7 +9,6 @@ import java.util.TimeZone;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import ch.inftec.ju.util.IOUtil;
 import ch.inftec.ju.util.JuException;
 import ch.inftec.ju.util.JuUrl;
 import ch.inftec.ju.util.TestUtils;
@@ -196,7 +196,7 @@ public class XmlUtilsTest {
 		// We need to work with input streams and bytes to make sure the encoding is not messed with
 		ByteArrayInputStream is = new ByteArrayInputStream(xml1.getBytes("UTF-8"));
 		XmlOutputConverter xmlConv1 = new XmlOutputConverter();
-		IOUtils.copy(is, xmlConv1.getOutputStream());
+		IOUtil.copy(is, xmlConv1.getOutputStream());
 		
 		Document doc2 = xmlConv1.getDocument();
 		

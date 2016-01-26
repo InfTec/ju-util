@@ -3,9 +3,8 @@ package ch.inftec.ju.util.helper;
 import java.util.Collection;
 
 import ch.inftec.ju.util.AssertUtil;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
+import ch.inftec.ju.util.JuCollectionUtils;
+import ch.inftec.ju.util.function.Function;
 
 /**
  * Helper class to build a FindHelper instance.
@@ -14,34 +13,50 @@ import com.google.common.collect.Collections2;
  * @param <T> Element type
  */
 public class FindHelperBuilder<T> {
-	private Collection<? extends T> collection;
+	private Iterable<? extends T> items;
 	private T noneObject;
-	
+
+	/**
+	 * Iterable to be wrapped.
+	 */
+	public FindHelperBuilder<T> iterable(Iterable<? extends T> iterable) {
+		this.items = iterable;
+		return this;
+	}
+
+	/**
+	 * Iterable to be wrapped, transforming the elements after returning them.
+	 */
+	public <S> FindHelperBuilder<T> iterableTransformed(Iterable<S> srcIterable, Function<S, ? extends T> transformer) {
+		Iterable<? extends T> iterableTransformed = JuCollectionUtils.iterableTransformed(srcIterable, transformer);
+		return this.iterable(iterableTransformed);
+	}
+
 	/**
 	 * Collection to be wrapped.
 	 * @param coll Collection
-	 * @return
+	 * @deprecated Use iterable() instead as we accept any kind of Iterable, not only collections
 	 */
+	@Deprecated
 	public FindHelperBuilder<T> collection(Collection<? extends T> coll) {
-		this.collection = coll;
-		return this;
+		return iterable(coll);
 	}
-	
+
 	/**
 	 * Collection to be wrapped, transforming the elements before adding them.
 	 * @param srcColl Source collection
 	 * @param transformer Transformer to transform elements
-	 * @return
+	 * @deprecated Use iterableTransformed() instead as we accept any kind of Iterable, not only collections
 	 */
-	public <S> FindHelperBuilder<T> collectionTransformed(Collection<S> srcColl, Function<? super S, ? extends T> transformer) {
-		return this.collection(Collections2.transform(srcColl, transformer));
+	@Deprecated
+	public <S> FindHelperBuilder<T> collectionTransformed(Collection<S> srcColl, Function<S, ? extends T> transformer) {
+		return iterableTransformed(srcColl, transformer);
 	}
 	
 	/**
 	 * Sets the noneObject, i.e. a dummy object that can be returned in place of
 	 * null if no object exists to avoid null pointers.
 	 * @param noneObject None object
-	 * @return 
 	 */
 	public FindHelperBuilder<T> noneObject(T noneObject) {
 		this.noneObject = noneObject;
@@ -53,9 +68,9 @@ public class FindHelperBuilder<T> {
 	 * @return FindHelper
 	 */
 	public FindHelper<T> createFindHelper() {
-		AssertUtil.assertNotNull("Collection must be specified", this.collection);
+		AssertUtil.assertNotNull("Iterable must be specified", this.items);
 		
-		return new FindHelper<>(this.collection);
+		return new FindHelper<>(this.items);
 	}
 	
 	/**
@@ -63,9 +78,9 @@ public class FindHelperBuilder<T> {
 	 * @return FindNoneHelper
 	 */
 	public FindNoneHelper<T> createFindNoneHelper() {
-		AssertUtil.assertNotNull("Collection must be specified", this.collection);
+		AssertUtil.assertNotNull("Iterable must be specified", this.items);
 		AssertUtil.assertNotNull("None Object must be specified", this.noneObject);
 		
-		return new FindNoneHelper<>(this.collection, this.noneObject);
+		return new FindNoneHelper<>(this.items, this.noneObject);
 	}
 }

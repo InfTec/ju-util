@@ -22,6 +22,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import ch.inftec.ju.util.comparison.DefaultComparator;
 import ch.inftec.ju.util.comparison.EqualityTester;
+import ch.inftec.ju.util.function.Function;
 
 /**
  * Contains utility methods regarding collections, maps and the like.
@@ -418,6 +419,63 @@ public final class JuCollectionUtils {
 		}
 
 		return list;
+	}
+
+	/**
+	 * Returns a new iterator backed by the specified iterator that applies the specified transformation on all the iterated values.
+	 * @param sourceIterator Source iterator
+	 * @param transformation Transformation function to be applied to all items
+	 * @param <T> Source type
+	 * @param <R> Result type
+	 * @return Iterator that returns all items of the source iterator after being transformed using the specified transformation
+	 */
+	public static <T, R> Iterator<R> iteratorTransformed(Iterator<T> sourceIterator, Function<T, R> transformation) {
+		return new TransformingIterator<>(sourceIterator, transformation);
+	}
+
+	private static class TransformingIterator<S, E> implements Iterator<E> {
+		private final Iterator<S> sourceIterator;
+		private final Function<S, E> transformer;
+
+		public TransformingIterator(Iterator<S> sourceIterator, Function<S, E> transformer) {
+			this.sourceIterator = sourceIterator;
+			this.transformer = transformer;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return sourceIterator.hasNext();
+		}
+
+		@Override
+		public E next() {
+			S nextVal = sourceIterator.next();
+
+			return transformer.apply(nextVal);
+		}
+
+		@Override
+		public void remove() {
+			sourceIterator.remove();
+		}
+	}
+
+	/**
+	 * Returns a new iterable backed by the specified iterable that applies the specified transformation on all the iterated values.
+	 * @param sourceIterable Source iterator
+	 * @param transformation Transformation function to be applied to all items
+	 * @param <T> Source type
+	 * @param <R> Result type
+	 * @return Iterator that returns all items of the source iterator after being transformed using the specified transformation
+	 */
+	public static <T, R> Iterable<R> iterableTransformed(final Iterable<T> sourceIterable, final Function<T, R> transformation) {
+		return new Iterable<R>() {
+			@Override
+			public Iterator<R> iterator() {
+				Iterator<T> sourceIterator = sourceIterable.iterator();
+				return new TransformingIterator<>(sourceIterator, transformation);
+			}
+		};
 	}
 
 	/**

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ch.inftec.ju.util.function.Function;
+
 public class JuCollectionUtilsTest {
 	private List<Integer> list12 = Arrays.asList(1, 2);
 	private List<Integer> list12_copy = Arrays.asList(1, 2);
@@ -104,4 +106,37 @@ public class JuCollectionUtilsTest {
 		assertNotSame(list12, intersection);
 		assertTrue(JuCollectionUtils.collectionEquals(list12, intersection));
 	}
+
+	@Test
+	public void iteratorTransformed_transformsElements() {
+		List<Integer> list = JuCollectionUtils.asArrayList(1, 2);
+
+		Iterator<Integer> transformedIterator = JuCollectionUtils.iteratorTransformed(list.iterator(), getMultiplyByTwoFunction());
+
+		assertEquals(Integer.valueOf(2), transformedIterator.next());
+		assertEquals(Integer.valueOf(4), transformedIterator.next());
+		assertFalse(transformedIterator.hasNext());
+	}
+
+	private Function<Integer, Integer> getMultiplyByTwoFunction() {
+		return new Function<Integer, Integer>() {
+			@Override
+			public Integer apply(Integer integer) {
+				return integer * 2;
+			}
+		};
+	}
+
+	@Test
+	public void iterableTransformed_transformsElements() {
+		List<Integer> list = JuCollectionUtils.asArrayList(1);
+
+		Iterable<Integer> transformedIterable = JuCollectionUtils.iterableTransformed(list, getMultiplyByTwoFunction());
+
+		Iterator<Integer> transformedIterator = transformedIterable.iterator();
+
+		assertEquals(Integer.valueOf(2), transformedIterator.next());
+		assertFalse(transformedIterator.hasNext());
+	}
 }
+

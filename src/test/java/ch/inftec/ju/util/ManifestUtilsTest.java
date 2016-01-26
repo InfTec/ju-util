@@ -36,7 +36,7 @@ public class ManifestUtilsTest {
 	@Test
 	public void findOne_throwsException_forMultipleResults() {
 		this.exception.expect(JuRuntimeException.class);
-		this.exception.expectMessage("Expected no more than 1 item");
+		this.exception.expectMessage("More than 1 item available");
 		
 		ManifestUtils.find()
 				.byAttribute("Manifest-Version", "1\\.0")

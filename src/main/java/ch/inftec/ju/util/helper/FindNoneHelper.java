@@ -1,7 +1,5 @@
 package ch.inftec.ju.util.helper;
 
-import java.util.Collection;
-
 /**
  * Extension of FindHelper that provides additional support for empty objects
  * or dummy objects to avoid null pointers.
@@ -15,10 +13,10 @@ public class FindNoneHelper<T> extends FindHelper<T> {
 	
 	/**
 	 * Creates a new FindHelper
-	 * @param coll Collection containing elements
+	 * @param iterable Iterable returning all wrapped items
 	 */
-	public FindNoneHelper(Collection<? extends T> coll, T noneObject) {
-		super(coll);
+	public FindNoneHelper(Iterable<? extends T> iterable, T noneObject) {
+		super(iterable);
 		
 		this.noneObject = noneObject;
 	}

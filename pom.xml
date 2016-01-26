@@ -19,13 +19,13 @@
 	<description>General utility functions</description>
 
 	<properties>
-		<version.slf4j>1.7.5</version.slf4j>
-		<version.apache.commons.lang>3.1</version.apache.commons.lang>
-		<version.plexus.interpolation>1.19</version.plexus.interpolation>
-		<version.junit>4.11</version.junit>
-		<version.opencsv>2.0</version.opencsv>
+		<version.slf4j>1.7.14</version.slf4j>
+		<version.apache.commons.lang>3.4</version.apache.commons.lang>
+		<version.plexus.interpolation>1.22</version.plexus.interpolation>
+		<version.junit>4.12</version.junit>
+		<version.opencsv>2.3</version.opencsv>
 		<version.log4j>1.2.17</version.log4j>
-		<version.jasypt>1.9.1</version.jasypt>
+		<version.jasypt>1.9.2</version.jasypt>
 	</properties>
 
 	<url>https://github.com/InfTec/ju-util</url>

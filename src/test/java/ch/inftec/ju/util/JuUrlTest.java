@@ -108,8 +108,8 @@ public class JuUrlTest {
 	 */
 	@Test
 	public void jarResourceLoading_test() {
-		// JUnit JAR contains a LICENCE.txt
-		List<URL> urls = JuUrl.resource().getAll("LICENSE.txt");
+		// JUnit JAR contains a LICENCE-junit.txt
+		List<URL> urls = JuUrl.resource().getAll("LICENSE-junit.txt");
 		URL jUnitLicense = null;
 		for (URL url : urls) {
 			if (url.toExternalForm().contains("junit")) {

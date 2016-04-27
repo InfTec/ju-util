@@ -68,7 +68,7 @@ public class TestUtilsTest {
 		String xml = "<root><child/></root>";
 
 		TestUtils.assertion().xml()
-				.expectedResource(JuUrl.existingResourceRelativeTo("TestUtilsTest_canCompare_xmlDocument_toResource.xml", this.getClass()))
+				.expectedResource(JuUrl.existingResourceRelativeToAndPrefixed("canCompare_xmlDocument_toResource.xml", this.getClass()))
 				.actualXml(xml)
 				.assertEquals();
 	}
@@ -78,7 +78,7 @@ public class TestUtilsTest {
 		String xml = "<root><child2/></root>";
 
 		TestUtils.assertion().xml()
-				.expectedResource(JuUrl.existingResourceRelativeTo("TestUtilsTest_canCompare_xmlDocument_toResource.xml", this.getClass()))
+				.expectedResource(JuUrl.existingResourceRelativeToAndPrefixed("canCompare_xmlDocument_toResource.xml", this.getClass()))
 				.actualXml(xml)
 				.assertEquals();
 	}

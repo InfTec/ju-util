@@ -50,11 +50,34 @@ public class JuUrl {
 	}
 	
 	/**
+	 * Gets an existing resource relative to a specified class, throwing an exception if no resource is found.
+	 * <p>
+	 * The resourceName will be automatically prefixed with the relative classes simple name. Example:
+	 * <ul>
+	 * <li>resourceName: test.txt</li>
+	 * <li>relativeClass: com.test.TestClass</li>
+	 * <li>Actual resource name: <strong>TestClass_test.txt</strong> in directory com/test.</li>
+	 * </ul>
+	 * 
+	 * @param resourceName
+	 * @param relativeClass
+	 * @return
+	 */
+	public static URL existingResourceRelativeToAndPrefixed(String resourceName, Class<?> relativeClass) {
+		String actualResourceName = String.format("%s_%s", relativeClass.getSimpleName(), resourceName);
+
+		return existingResourceRelativeTo(actualResourceName, relativeClass);
+	}
+
+	/**
 	 * Gets the resource with the specified name, making sure that there is only one resource with the name
 	 * and that it exists.
-	 * @param resourceName Resource name
+	 * 
+	 * @param resourceName
+	 *            Resource name
 	 * @return URL to resource
-	 * @throws JuRuntimeException If resource doesn't exist
+	 * @throws JuRuntimeException
+	 *             If resource doesn't exist
 	 */
 	public static URL singleResource(String resourceName) {
 		return JuUrl.resource().single().exceptionIfNone().get(resourceName);

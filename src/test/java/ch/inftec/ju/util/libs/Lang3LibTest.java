@@ -1,6 +1,7 @@
 package ch.inftec.ju.util.libs;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,20 +20,20 @@ import ch.inftec.ju.util.TestUtils;
 public class Lang3LibTest {
 	@Test
 	public void toStringBuilder() {
-		HashMap<String, Integer> map = new HashMap<>();
+		HashMap<String, Integer> map = new LinkedHashMap<>();
 		map.put("one", 1);
 		map.put("two", 2);
 		
 		// Test the builder with a hashmap
 		
 		// e.g. ch.inftec.ju.util.libs.Lang3LibTest@f27cdc[{two=2, one=1}]
-		TestUtils.assertRegexEquals("ch\\.inftec\\.ju\\.util\\.libs\\.Lang3LibTest@.*\\[\\{two=2, one=1\\}\\]",
+		TestUtils.assertRegexEquals("ch\\.inftec\\.ju\\.util\\.libs\\.Lang3LibTest@.*\\[\\{one=1, two=2\\}\\]",
 				new ToStringBuilder(this).append(map).toString());		
 		
-		Assert.assertEquals("Lang3LibTest[map={two=2, one=1}]", 
+		Assert.assertEquals("Lang3LibTest[map={one=1, two=2}]",
 				new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("map", map).toString());
 		
-		Assert.assertEquals("{two=2, one=1}", 
+		Assert.assertEquals("{one=1, two=2}",
 				new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("map", map).toString());
 	}
 	

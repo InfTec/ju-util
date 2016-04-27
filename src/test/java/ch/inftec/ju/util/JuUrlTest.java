@@ -1,5 +1,7 @@
 package ch.inftec.ju.util;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
@@ -28,6 +30,19 @@ public class JuUrlTest {
 		Assert.assertNotNull(JuUrl.resource().relativeTo(JuUrlTest.class).get("testResource.txt"));
 	}
 	
+	@Test
+	public void existingResourceRelativeToAndPrefixed() {
+		expectContents(
+				"JuUrlTest_testResource.txt",
+				JuUrl.existingResourceRelativeToAndPrefixed("testResource.txt", JuUrlTest.class));
+	}
+
+	private void expectContents(String expected, URL url) {
+		String actual = new IOUtil().loadTextFromUrl(url);
+
+		assertEquals(expected, actual);
+	}
+
 	@Test
 	public void resource_usingClassLoader() {
 		Assert.assertNotNull(JuUrl.resource().get("ch/inftec/ju/util/testResource.txt"));

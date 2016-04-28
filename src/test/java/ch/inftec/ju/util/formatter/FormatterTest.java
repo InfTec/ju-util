@@ -3,7 +3,7 @@ package ch.inftec.ju.util.formatter;
 /**
  * Class to test Eclipse formatter.
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  * 
  */
 public class FormatterTest {

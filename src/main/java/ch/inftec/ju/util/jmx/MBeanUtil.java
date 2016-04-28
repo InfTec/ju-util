@@ -6,7 +6,7 @@ import ch.inftec.ju.util.helper.ValueConverter;
  * Interface to work with Java JMX MBeans.
  * <p>
  * Use the MBeanUtils class to get instances of MBeanUtil.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public interface MBeanUtil {

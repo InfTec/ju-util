@@ -9,7 +9,7 @@ import ch.inftec.ju.util.IOUtil;
 
 /**
  * Contains test for serializing Java classes
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @SuppressWarnings("unused")

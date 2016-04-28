@@ -3,7 +3,7 @@ package ch.inftec.ju.util.helper;
 /**
  * Extension of FindHelper that provides additional support for empty objects
  * or dummy objects to avoid null pointers.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  * 
  * @param <T> Element type
  *

@@ -11,7 +11,7 @@ import ch.inftec.ju.util.helper.ValueConverterFactory;
 
 /**
  * Utility class to deal with MBeans.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class MBeanUtils {

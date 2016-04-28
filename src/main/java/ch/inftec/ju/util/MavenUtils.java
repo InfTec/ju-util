@@ -5,7 +5,7 @@ import java.util.Properties;
 
 /**
  * Utility methods related to Maven.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class MavenUtils {

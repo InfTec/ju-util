@@ -25,7 +25,7 @@ import ch.inftec.ju.util.xml.ns.ref.RefNameType;
 
 /**
  * Contains XmlUtils tests related to JAXB.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class XmlUtilsJaxbTest {

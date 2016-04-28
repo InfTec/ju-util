@@ -2,7 +2,7 @@ package ch.inftec.ju.util;
 
 /**
  * Interface that adds interpolation support to PropertyChain.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public interface InterpolatingPropertyChain extends PropertyChain {

@@ -11,7 +11,7 @@ import ch.inftec.ju.util.JuRuntimeException;
 /**
  * Helper class that wraps a collection and provides convenience methods to access
  * their elements.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  * @param <T> Type of the elements
  */

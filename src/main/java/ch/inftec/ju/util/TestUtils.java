@@ -329,7 +329,7 @@ public final class TestUtils {
 	/**
 	 * Helper class to configure and execute assertions.
 	 * 
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public static final class AssertionBuilder {
@@ -351,7 +351,7 @@ public final class TestUtils {
 		/**
 		 * Helper class to compare XMLs.
 		 * 
-		 * @author Martin Meyer <martin.meyer@inftec.ch>
+		 * @author martin.meyer@inftec.ch
 		 *
 		 */
 		public static final class XmlAssertionBuilder {
@@ -428,7 +428,7 @@ public final class TestUtils {
 			/**
 			 * Helper class to export actual XMLs instead of comparing to expected resources.
 			 * 
-			 * @author Martin Meyer <martin.meyer@inftec.ch>
+			 * @author martin.meyer@inftec.ch
 			 *
 			 */
 			public static final class ExportBuilder<T> {

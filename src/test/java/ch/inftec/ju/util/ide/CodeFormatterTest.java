@@ -4,7 +4,7 @@ package ch.inftec.ju.util.ide;
  * Test class for the (Eclipse) code formatter. When we find a behavior of the formatter we don't like,
  * we can add a test code snippet here to make sure it won't happen again.
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  * 
  */
 public class CodeFormatterTest {

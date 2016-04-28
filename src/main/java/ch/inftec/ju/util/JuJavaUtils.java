@@ -6,7 +6,7 @@ import java.net.URLClassLoader;
 
 /**
  * Java (JVM) related utility functions.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class JuJavaUtils {

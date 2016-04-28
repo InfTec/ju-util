@@ -8,7 +8,7 @@ import ch.inftec.ju.util.function.Function;
 
 /**
  * Helper class to build a FindHelper instance.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  * @param <T> Element type
  */

@@ -12,7 +12,7 @@ import com.google.common.base.Predicate;
  * <p>
  * Note that implementations may not be high performant and should not be used for productive use, but rather
  * for tests.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class ConcurrencyUtils {

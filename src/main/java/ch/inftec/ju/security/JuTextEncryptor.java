@@ -4,7 +4,7 @@ package ch.inftec.ju.security;
  * Interface for text encryption and decryption.
  * <p>
  * Similar to org.jasypt.util.text.TextEncryptor
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public interface JuTextEncryptor {

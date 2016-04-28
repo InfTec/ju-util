@@ -8,7 +8,7 @@ import ch.inftec.ju.util.JuStringUtils;
 
 /**
  * Factory to create ValueConverter instances.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class ValueConverterFactory {

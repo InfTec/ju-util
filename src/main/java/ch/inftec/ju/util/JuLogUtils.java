@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Logging related utility functions.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class JuLogUtils {

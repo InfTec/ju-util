@@ -85,7 +85,7 @@ public interface PropertyChain {
 	
 	/**
 	 * Detialed property information
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public interface PropertyInfo {

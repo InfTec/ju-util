@@ -19,7 +19,7 @@ import ch.inftec.ju.util.helper.FindNoneHelper;
  * <p>
  * This class will not perform any caching of manifests, but search the whole classpath everytime
  * it is used.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class ManifestUtils {
@@ -35,7 +35,7 @@ public class ManifestUtils {
 	
 	/**
 	 * Helper class to find manifest files.
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public static final class ManifestFinder {
@@ -140,7 +140,7 @@ public class ManifestUtils {
 		
 		/**
 		 * Wrapper class to access Manifest information
-		 * @author Martin Meyer <martin.meyer@inftec.ch>
+		 * @author martin.meyer@inftec.ch
 		 *
 		 */
 		public static class ManifestWrapper {

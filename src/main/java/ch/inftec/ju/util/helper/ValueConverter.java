@@ -2,7 +2,7 @@ package ch.inftec.ju.util.helper;
 
 /**
  * Helper interface that can be used whenever values can be returned in different formats by a single method.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public interface ValueConverter {

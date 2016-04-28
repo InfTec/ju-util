@@ -290,7 +290,7 @@ public class PropertyChainBuilder {
 	
 	/**
 	 * Helper class to evaluate chains by chain files.
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public final class ChainFilesResolver {
@@ -466,7 +466,7 @@ public class PropertyChainBuilder {
 	
 	/**
 	 * Helper class to configure property interpolation of a PropertyChain.
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public final class InterpolationBuilder {

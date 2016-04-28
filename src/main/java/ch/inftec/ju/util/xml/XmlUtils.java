@@ -561,7 +561,7 @@ public class XmlUtils {
         
         /**
          * Helper interface to provide a JAXB implementation specific instance of the NamespacePrefixMapper.
-         * @author Martin Meyer <martin.meyer@inftec.ch>
+         * @author martin.meyer@inftec.ch
          *
          */
         public interface NamespacePrefixMapperAdapter {
@@ -582,7 +582,7 @@ public class XmlUtils {
 
         	/**
         	 * JU specific prefix mapper.
-        	 * @author Martin Meyer <martin.meyer@inftec.ch>
+        	 * @author martin.meyer@inftec.ch
         	 *
         	 */
         	interface PrefixMapper {

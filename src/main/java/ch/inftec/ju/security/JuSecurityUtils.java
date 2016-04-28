@@ -30,7 +30,7 @@ import ch.inftec.ju.util.RegexUtil;
 
 /**
  * Utility class providing security related functionality, like encryption and decryption algorithms.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public final class JuSecurityUtils {
@@ -98,7 +98,7 @@ public final class JuSecurityUtils {
 	
 	/**
 	 * Helper class to build encryptors.
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 */
 	public static final class EncryptorBuilder {

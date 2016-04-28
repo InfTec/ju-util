@@ -6,7 +6,7 @@ import org.junit.Test;
 
 /**
  * Test cases using console input.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class JavaUtilTestConsole {

@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  * Test Plexus interpolation.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class PlexusInterpolationTest {

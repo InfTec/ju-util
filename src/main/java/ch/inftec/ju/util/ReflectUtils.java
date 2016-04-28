@@ -572,7 +572,7 @@ public final class ReflectUtils {
 	 * Helper class that encapsulates an Annotation and information on where it was declared (on which class / method).
 	 * <p>
 	 * Overrides toString that will return the Annotation type along with the declaring class and (if any) method
-	 * @author Martin Meyer <martin.meyer@inftec.ch>
+	 * @author martin.meyer@inftec.ch
 	 *
 	 * @param <A> Annotation Type
 	 */

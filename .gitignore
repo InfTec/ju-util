@@ -1,6 +1,6 @@
-/.idea/
-/.settings/
-/target/
-/.classpath
-/.project
-/ju-util.iml
+.idea
+.settings
+target
+.classpath
+.project
+*.iml

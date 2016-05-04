@@ -12,11 +12,13 @@
 	</parent>
 
 	<groupId>ch.inftec.ju</groupId>
-	<artifactId>ju-util</artifactId>
+	<artifactId>ju-util-parent</artifactId>
 	<version>6.0</version>
+	<packaging>pom</packaging>
 
-	<name>JU Util</name>
-	<description>General utility functions</description>
+	<modules>
+		<module>ju-util</module>
+	</modules>
 
 	<properties>
 		<version.slf4j>1.7.14</version.slf4j>
@@ -28,7 +30,7 @@
 		<version.jasypt>1.9.2</version.jasypt>
 	</properties>
 
-	<url>https://github.com/InfTec/ju-util</url>
+	<url>https://github.com/InfTec/ju-util-parent</url>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -50,61 +52,63 @@
 		</developer>
 	</developers>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${version.slf4j}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${version.slf4j}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${version.apache.commons.lang}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-interpolation</artifactId>
-			<version>${version.plexus.interpolation}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<optional>true</optional>
-			<version>${version.junit}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>${version.opencsv}</version>
-		</dependency>
-
-		<!-- Needed by Log4jAppenderModel, imported by slf4j with scope runtime, but we need it to
-		     build the project. We don't want to include it as a dependency though as not all
-		     project using JU will use the log4j appender
-		-->
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${version.log4j}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jasypt</groupId>
-			<artifactId>jasypt</artifactId>
-			<version>${version.jasypt}</version>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${version.slf4j}</version>
+				<scope>provided</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${version.apache.commons.lang}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-interpolation</artifactId>
+				<version>${version.plexus.interpolation}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<optional>true</optional>
+				<version>${version.junit}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>net.sf.opencsv</groupId>
+				<artifactId>opencsv</artifactId>
+				<version>${version.opencsv}</version>
+			</dependency>
+	
+			<!-- Needed by Log4jAppenderModel, imported by slf4j with scope runtime, but we need it to
+			     build the project. We don't want to include it as a dependency though as not all
+			     project using JU will use the log4j appender
+			-->
+	
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${version.log4j}</version>
+				<scope>provided</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.jasypt</groupId>
+				<artifactId>jasypt</artifactId>
+				<version>${version.jasypt}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

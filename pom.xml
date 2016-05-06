@@ -18,6 +18,8 @@
 
 	<modules>
 		<module>ju-util</module>
+		<module>ju-devops</module>
+		<module>ju-maven-plugin</module>
 	</modules>
 
 	<properties>
@@ -28,8 +30,10 @@
 		<version.opencsv>2.3</version.opencsv>
 		<version.log4j>1.2.17</version.log4j>
 		<version.jasypt>1.9.2</version.jasypt>
+		<version.maven.plugin-testing>3.0.0</version.maven.plugin-testing>
+		<version.maven.plugin-tools>3.2</version.maven.plugin-tools>
 	</properties>
-
+	
 	<url>https://github.com/InfTec/ju-util-parent</url>
 	<licenses>
 		<license>
@@ -54,6 +58,18 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>ju-util</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>ju-devops</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -108,6 +124,18 @@
 				<groupId>org.jasypt</groupId>
 				<artifactId>jasypt</artifactId>
 				<version>${version.jasypt}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.maven.plugin-testing</groupId>
+				<artifactId>maven-plugin-testing-harness</artifactId>
+				<version>${version.maven.plugin-testing}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.maven.plugin-tools</groupId>
+				<artifactId>maven-plugin-annotations</artifactId>
+				<version>${version.maven.plugin-tools}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

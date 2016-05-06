@@ -1,0 +1,265 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ch.inftec.ju</groupId>
+		<artifactId>ju-util-parent</artifactId>
+		<version>6.0</version>
+	</parent>
+
+	<artifactId>ju-maven-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+
+	<description>Maven Plugin used for testing purposes</description>
+
+	<properties>
+		<!-- Maybe move to parent -->
+		<mavenVersion>3.1.1</mavenVersion> <!-- Make sure that this maps to the Maven version used to build the project, otherwise dependency hell will occurr... :o -->
+		<mavenPluginPluginVersion>3.2</mavenPluginPluginVersion>
+	</properties>
+
+	<dependencies>
+		<!-- Maven Plugin dependencies -->
+
+		<!-- Contains main Maven classes like AbstractMojo -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>${mavenVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-compat</artifactId>
+			<version>${mavenVersion}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-testing</groupId>
+			<artifactId>maven-plugin-testing-harness</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Various dependencies -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ju-util</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ju-devops</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- <plugin> -->
+			<!-- <groupId>ch.inftec.ju</groupId> -->
+			<!-- <artifactId>ju-maven-plugin</artifactId> -->
+			<!-- <version>4.3-SNAPSHOT</version> -->
+			<!-- </plugin> -->
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>${mavenPluginPluginVersion}</version>
+				<configuration>
+					<goalPrefix>ju</goalPrefix>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-descriptor</id>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+					<execution>
+						<id>help-descriptor</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- Profiles to test plugin execution. Note that the plugin will be resolved from the local repository, i.e. it
+	     must be installed first.
+	     When binding execution to the install phase, the latest build will be used when executing mvn install.
+	 -->
+	<profiles>
+		<!-- Test execution bound to install phase -->
+		<profile>
+			<id>run-plugin-onInstall</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>ju-maven-plugin</artifactId>
+						<version>${project.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>greet</goal>
+								</goals>
+								<phase>install</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<!-- Specify a default execution. This will be used when we call mvn -P run-plugin-cli ju:greet from the command line.
+		     Apparently, we cannot execute different executions from command line manuaylly: http://stackoverflow.com/questions/3779369/run-a-single-maven-plugin-execution -->
+		<profile>
+			<id>run-plugin-cli</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>ju-maven-plugin</artifactId>
+						<version>${project.version}</version>
+						<executions>
+							<execution>
+								<id>default-cli</id>
+								<goals>
+<!-- 									<goal>greet</goal> Optional as we need to specify the goal anyway...-->
+								</goals>
+								<configuration>
+									<greeting>Default CLI, unbound plugin!</greeting>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>run-plugin-propertiesTest</id>
+			
+			<!-- 
+				Define ju.greet.mavenProp as a maven property.  
+			
+				Behavior:
+				If we have a value ${val}, we can either define a Maven property <val>x</val> or a system parameter
+				-Dval=x to define it. If we define both, the system parameter takes precedence.
+				If we overwrite a system property in a Maven plugin at execution time, it will not be taken into
+				account.
+				If we overwrite a Maven property at execution time using project.getProperties().put, it will be
+				taken into account.
+			
+			-->
+			<properties>
+				<ju.greet.mavenProp>mavenProp</ju.greet.mavenProp>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>ju-maven-plugin</artifactId>
+						<version>${project.version}</version>
+						<executions>
+							<execution>
+								<id>ju-properties</id>
+								<goals><goal>properties</goal></goals>
+								<phase>install</phase>
+								<configuration>
+									<chain>
+										<chainElements>
+											<chainElement>
+												<lookupConfigFile>
+													<fileName>src/test/resources/test-maven/propertiesMojoMaven/propertiesMojo.files</fileName>
+												</lookupConfigFile>
+											</chainElement>
+										</chainElements>
+									</chain>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ju-debug</id>
+								<goals>
+									<goal>debug</goal>
+								</goals>
+								<phase>install</phase>
+								<configuration>
+									<printProperties>
+										<maven>true</maven>
+										<system>true</system>
+										<sort>true</sort>
+									</printProperties>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ju-greet-mavenProp</id>
+								<goals>
+									<goal>greet</goal>
+								</goals>
+								<phase>install</phase>
+								<configuration>
+									<greeting>${ju.greet.mavenProp}</greeting>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ju-greet-systemProp</id>
+								<goals>
+									<goal>greet</goal>
+								</goals>
+								<phase>install</phase>
+								<configuration>
+									<greeting>${ju.greet.systemProp}</greeting>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ju-greet-mojoProp</id>
+								<goals>
+									<goal>greet</goal>
+								</goals>
+								<phase>install</phase>
+								<configuration>
+									<greeting>${ju.mojoProp}</greeting>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ju-assert</id>
+								<goals>
+									<goal>assert</goal>
+								</goals>
+								<phase>install</phase>
+								<configuration>
+									<assert>
+										<equals>
+											<equal>
+												<expected>bli</expected>
+												<actual>bli</actual>
+											</equal>
+										</equals>
+<!-- 										<equals> -->
+<!-- 											<expected>bli</expected> -->
+<!-- 											<actual>bla</actual> -->
+<!-- 										</equals> -->
+									</assert>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

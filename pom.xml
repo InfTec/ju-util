@@ -44,8 +44,8 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/InfTec/ju-util</url>
-		<connection>scm:git:git@github.com:InfTec/ju-util.git</connection>
+		<url>https://github.com/InfTec/ju-util-parent</url>
+		<connection>scm:git:git@github.com:InfTec/ju-util-parent.git</connection>
 	</scm>
 
 	<developers>

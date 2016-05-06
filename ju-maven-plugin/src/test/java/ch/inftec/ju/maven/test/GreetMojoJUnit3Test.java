@@ -6,7 +6,6 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.plexus.configuration.DefaultPlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ch.inftec.ju.util.JuUrl;
@@ -20,7 +19,6 @@ import ch.inftec.ju.util.xml.XmlUtils;
  * @author Martin Meyer <martin.meyer@inftec.ch>
  *
  */
-@Ignore("Somehow not working anymore on Bamboo server...")
 public class GreetMojoJUnit3Test extends AbstractMojoTestCase {
 //	protected void setUp() throws Exception {
 //		super.setUp();

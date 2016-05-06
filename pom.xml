@@ -30,8 +30,8 @@
 		<version.opencsv>2.3</version.opencsv>
 		<version.log4j>1.2.17</version.log4j>
 		<version.jasypt>1.9.2</version.jasypt>
-		<version.maven.plugin-testing>3.0.0</version.maven.plugin-testing>
-		<version.maven.plugin-tools>3.2</version.maven.plugin-tools>
+		<version.maven.plugin-testing>3.3.0</version.maven.plugin-testing>
+		<version.maven.plugin-tools>3.4</version.maven.plugin-tools>
 	</properties>
 	
 	<url>https://github.com/InfTec/ju-util-parent</url>

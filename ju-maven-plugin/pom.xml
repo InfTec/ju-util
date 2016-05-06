@@ -15,7 +15,7 @@
 
 	<properties>
 		<!-- Maybe move to parent -->
-		<mavenVersion>3.1.1</mavenVersion> <!-- Make sure that this maps to the Maven version used to build the project, otherwise dependency hell will occurr... :o -->
+		<mavenVersion>3.3.9</mavenVersion> <!-- Make sure that this maps to the Maven version used to build the project, otherwise dependency hell will occurr... :o -->
 		<mavenPluginPluginVersion>3.2</mavenPluginPluginVersion>
 	</properties>
 

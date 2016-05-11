@@ -20,6 +20,7 @@
 		<module>ju-util</module>
 		<module>ju-devops</module>
 		<module>ju-maven-plugin</module>
+		<module>ju-json</module>
 	</modules>
 
 	<properties>
@@ -32,6 +33,7 @@
 		<version.jasypt>1.9.2</version.jasypt>
 		<version.maven.plugin-testing>3.3.0</version.maven.plugin-testing>
 		<version.maven.plugin-tools>3.4</version.maven.plugin-tools>
+		<version.jackson>1.9.13</version.jackson>
 	</properties>
 	
 	<url>https://github.com/InfTec/ju-util-parent</url>
@@ -124,6 +126,12 @@
 				<groupId>org.jasypt</groupId>
 				<artifactId>jasypt</artifactId>
 				<version>${version.jasypt}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${version.jackson}</version>
 			</dependency>
 			
 			<dependency>

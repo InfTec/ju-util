@@ -1,0 +1,7 @@
+{
+  "simpleObject" : {
+    "val" : "val2"
+  },
+  "stringList" : [ "vala", "valb", "valc" ],
+  "stringVal" : "val1"
+}

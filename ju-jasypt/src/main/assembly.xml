@@ -1,0 +1,40 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>jasypt</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/src/main/scripts</directory>
+            <outputDirectory>/</outputDirectory>
+            <filtered>false</filtered>
+            <directoryMode>0755</directoryMode>
+            <excludes>
+                <exclude>**/*.sh</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/src/main/scripts</directory>
+            <outputDirectory>/</outputDirectory>
+            <filtered>false</filtered>
+            <directoryMode>0755</directoryMode>
+            <includes>
+                <include>**/*.sh</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/jasypt/lib</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <unpack>false</unpack>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+        </dependencySet>
+    </dependencySets>
+
+
+</assembly>

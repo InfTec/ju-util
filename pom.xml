@@ -21,6 +21,7 @@
 		<module>ju-devops</module>
 		<module>ju-maven-plugin</module>
 		<module>ju-json</module>
+		<module>ju-jasypt</module>
 	</modules>
 
 	<properties>

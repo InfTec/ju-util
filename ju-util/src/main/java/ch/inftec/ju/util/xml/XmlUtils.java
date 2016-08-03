@@ -27,7 +27,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.xalan.xsltc.trax.TransformerFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -73,6 +72,8 @@ public class XmlUtils {
     	return df;
     }
 
+	// See org.apache.xalan.xsltc.trax.TransformerFactoryImpl (we don't want to add it to classpath)
+	private static final String ATTR_INDENT_NUMBER = "indent-number";
 	private static final int INDENT_NUMBER = 2;
 
 	/**
@@ -275,11 +276,10 @@ public class XmlUtils {
 
 			// With JBoss implementation of Xalan, the OutputKeys.INDENT on Transformer wouldn't work. We have to set the INDENT_NUMBER
 			// attribute on the factory instead...
-			// // Make sure the code compiles with the JRE bundled xalan classes...
-			if (tf.getClass().getName().equals("org.apache.xalan.xsltc.trax.TransformerFactoryImpl")) {
-				if (indent) {
-					tf.setAttribute(TransformerFactoryImpl.INDENT_NUMBER, INDENT_NUMBER);
-				}
+			try {
+				tf.setAttribute(ATTR_INDENT_NUMBER, INDENT_NUMBER);
+			} catch (IllegalArgumentException ex) {
+				// Ignore, probably not JBoss bundled factory...
 			}
 
 			Transformer transformer = tf.newTransformer();

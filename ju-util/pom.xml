@@ -60,5 +60,12 @@
 			<groupId>org.jasypt</groupId>
 			<artifactId>jasypt</artifactId>
 		</dependency>
+		
+		<!-- Use JBoss implementation of Xalan for testing as it blew up indenting with Wildfly 10 -->
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

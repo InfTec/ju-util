@@ -35,6 +35,8 @@
 		<version.maven.plugin-testing>3.3.0</version.maven.plugin-testing>
 		<version.maven.plugin-tools>3.4</version.maven.plugin-tools>
 		<version.jackson>1.9.13</version.jackson>
+		<!-- Use JBoss implementation of Xalan for testing as it blew up indenting with Wildfly 10 -->
+		<version.xalan>2.7.1.jbossorg-2</version.xalan>
 	</properties>
 	
 	<url>https://github.com/InfTec/ju-util-parent</url>
@@ -58,6 +60,16 @@
 			<email>martin.meyer@inftec.ch</email>
 		</developer>
 	</developers>
+
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencyManagement>
 		<dependencies>
@@ -145,6 +157,12 @@
 				<groupId>org.apache.maven.plugin-tools</groupId>
 				<artifactId>maven-plugin-annotations</artifactId>
 				<version>${version.maven.plugin-tools}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>${version.xalan}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

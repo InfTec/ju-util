@@ -27,6 +27,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.xalan.xsltc.trax.TransformerFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -71,6 +72,9 @@ public class XmlUtils {
     	}
     	return df;
     }
+
+	private static final int INDENT_NUMBER = 2;
+
 	/**
 	 * Don't instantiate.
 	 */
@@ -268,6 +272,16 @@ public class XmlUtils {
 	public static String toString(Document document, boolean includeXmlDeclaration, boolean indent) throws JuRuntimeException {
 		try {
 			TransformerFactory tf = TransformerFactory.newInstance();
+
+			// With JBoss implementation of Xalan, the OutputKeys.INDENT on Transformer wouldn't work. We have to set the INDENT_NUMBER
+			// attribute on the factory instead...
+			// // Make sure the code compiles with the JRE bundled xalan classes...
+			if (tf.getClass().getName().equals("org.apache.xalan.xsltc.trax.TransformerFactoryImpl")) {
+				if (indent) {
+					tf.setAttribute(TransformerFactoryImpl.INDENT_NUMBER, INDENT_NUMBER);
+				}
+			}
+
 			Transformer transformer = tf.newTransformer();
 			transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -275,7 +289,7 @@ public class XmlUtils {
 			
 			if (indent) {
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", Integer.toString(INDENT_NUMBER));
 			}
 			
 			try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {

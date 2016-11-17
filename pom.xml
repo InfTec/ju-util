@@ -34,7 +34,7 @@
 		<version.jasypt>1.9.2</version.jasypt>
 		<version.maven.plugin-testing>3.3.0</version.maven.plugin-testing>
 		<version.maven.plugin-tools>3.4</version.maven.plugin-tools>
-		<version.jackson>1.9.13</version.jackson>
+		<version.jackson>2.7.4</version.jackson> <!-- Version of Wildfly 10.0.1.Final -->
 		<!-- Use JBoss implementation of Xalan for testing as it blew up indenting with Wildfly 10 -->
 		<version.xalan>2.7.1.jbossorg-2</version.xalan>
 	</properties>
@@ -142,8 +142,8 @@
 			</dependency>
 			
 			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
 				<version>${version.jackson}</version>
 			</dependency>
 			

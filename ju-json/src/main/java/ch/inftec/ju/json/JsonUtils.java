@@ -1,10 +1,11 @@
 package ch.inftec.ju.json;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import ch.inftec.ju.util.JuRuntimeException;
 
@@ -68,7 +69,7 @@ public class JsonUtils {
 		public String marshalToString(Object obj) {
 			try {
 				ObjectMapper mapper = new ObjectMapper();
-				mapper.configure(SerializationConfig.Feature.SORT_PROPERTIES_ALPHABETICALLY, true);
+				mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
 				ObjectWriter writer = this.formattedOutput
 					? mapper.writerWithDefaultPrettyPrinter()
 					: mapper.writer();

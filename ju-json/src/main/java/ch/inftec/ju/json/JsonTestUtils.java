@@ -14,7 +14,7 @@ public class JsonTestUtils {
 	 * <p>
 	 * This will marshall the object to a JSON string, format both and then compare them as Strings.
 	 * @param resourceName Name of the resource that has to be in the same package as the calling class
-	 * @param Object obj to be conpared to the JSON resource
+	 * @param obj Object to be compared to the JSON resource
 	 */
 	public static void assertEqualsJsonResource(String resourceName, Object obj) {
 		String resJson = new IOUtil("UTF-8").loadTextFromUrl(

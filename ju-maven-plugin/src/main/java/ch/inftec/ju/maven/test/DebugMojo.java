@@ -20,7 +20,7 @@ import org.apache.maven.project.MavenProject;
  * Debug mojo providing Maven debugging functionality.
  * <p>
  * Binds to the initialize phase by default.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @Mojo(name="debug", defaultPhase=LifecyclePhase.INITIALIZE)

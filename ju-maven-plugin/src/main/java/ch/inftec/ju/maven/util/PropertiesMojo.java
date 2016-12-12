@@ -27,7 +27,7 @@ import ch.inftec.ju.util.RegexUtil;
 /**
  * Mojo that allows to load properties from a property chain.
  * 
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @Mojo(name="properties")

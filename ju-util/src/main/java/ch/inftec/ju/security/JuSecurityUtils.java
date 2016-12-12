@@ -159,7 +159,7 @@ public final class JuSecurityUtils {
 		/**
 		 * Creates a text encryptor / decryptor.
 		 * <p>
-		 * Encrypted text will be encoded using Base64 encoding {@link http://en.wikipedia.org/wiki/Base64}. This
+		 * Encrypted text will be encoded using <a href="http://en.wikipedia.org/wiki/Base64">Base64 encoding</a>. This
 		 * means that encrypted Strings will contain upper and lower case letters along with the characters
 		 * '+', '/' and '='.
 		 * @return JuTextEncryptor instance

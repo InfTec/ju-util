@@ -107,7 +107,7 @@ public final class GuiUtils {
 	 * @param resourcePath File name of the icon's resource
 	 * @param relativeClass If not null, the path is used relative to this classes package. If null,
 	 * the path is used relative to the calling's class' package.
-	 * @returns ImageIcon instance
+	 * @return ImageIcon instance
 	 * @throws IllegalArgumentException If the icon resource cannot be found
 	 */
 	public static ImageIcon loadIconResource(String resourcePath, Class<?> relativeClass) {

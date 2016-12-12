@@ -14,7 +14,7 @@ public class JuLogUtils {
 	 * <p>
 	 * Helpful for debugging when we have multiple configuration files on the classpath
 	 * <p>
-	 * Note: Setting <strong>-Dlog4j.debug<strong>, Log4J will also output debug info on how it is configured
+	 * Note: Setting <strong>-Dlog4j.debug</strong>, Log4J will also output debug info on how it is configured
 	 */
 	public static void showLog4jConfigFiles() {
 		List<URL> configFiles = JuUrl.resource().getAll("log4j.xml");

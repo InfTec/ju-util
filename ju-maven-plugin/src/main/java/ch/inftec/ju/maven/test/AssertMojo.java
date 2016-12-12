@@ -18,7 +18,7 @@ import ch.inftec.ju.util.AssertUtil;
  * Debug mojo providing Assert functionality.
  * <p>
  * Binds to the initialize phase by default.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @Mojo(name="assert", defaultPhase=LifecyclePhase.INITIALIZE)

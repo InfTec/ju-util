@@ -132,7 +132,7 @@ public final class JuStringUtils {
 	/**
 	 * Removes all non-alphabetical leading characters from the String.
 	 * <p>
-	 * E.g. _01_test -> test
+	 * E.g. _01_test -&gt; test
 	 * @return
 	 */
 	public static String removeNonAlphabeticalLeadingCharacters(String s) {
@@ -278,7 +278,7 @@ public final class JuStringUtils {
 	/**
 	 * Gets the 128 bit MD5 checksum for the specified String as a Hex String (consisting of 32 characters).
 	 * @param s String
-	 * @Return MD5 checksum of the specified String as a Hex String
+	 * @return MD5 checksum of the specified String as a Hex String
 	 */
 	public static String getMd5Checksum(String s) {
 		Digester digester = new Digester();
@@ -343,10 +343,10 @@ public final class JuStringUtils {
 		 * @param amount
 		 *            Amount of words
 		 * @param startIndex
-		 *            Start index of word to begin with (must be >= 0 and < 50)
+		 *            Start index of word to begin with (must be &gt;= 0 and &lt; 50)
 		 * @return Lorem ipsum text
 		 * @throws IndexOutOfBoundsException
-		 *             If startIndex is < 0 or > 49
+		 *             If startIndex is &lt; 0 or &gt; 49
 		 */
 		public String getWords(int amount, int startIndex) {
 			if (startIndex < 0 || startIndex > 49) {

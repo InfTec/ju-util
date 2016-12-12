@@ -75,7 +75,7 @@ public class JuUtils {
 	 * is undefined.
 	 * <p>
 	 * Encrypted properties can be decrypted automatically by setting a file containing the decryption password using
-	 * the property <i>ju-util.propertyChain.encryption.passwordFile</>. This property will be evaluated using the Chain
+	 * the property <i>ju-util.propertyChain.encryption.passwordFile</i>. This property will be evaluated using the Chain
 	 * right before finalizing it.
 	 * <p>
 	 * The property chain can be configured by using <code>ju.properties.files</code> chain files on the classpath. See

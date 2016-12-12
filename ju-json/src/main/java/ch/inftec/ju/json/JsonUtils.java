@@ -11,7 +11,7 @@ import ch.inftec.ju.util.JuRuntimeException;
 
 /**
  * Utility class containing JSON related helper methods.
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 public class JsonUtils {

@@ -232,7 +232,7 @@ public class PropertyChainBuilder {
 	 * Sets a decryptor for encrypted text like ENC(xxxx) by resolving the password from a resource.
 	 * <p>
 	 * The resource will be lookup up using the chain builders resource folders first and then the classpath.
-	 * @param resourceName Resource name containing the encryption password
+	 * @param passwordResourceName Resource name containing the encryption password
 	 * @return This builder to allow for chaining
 	 */
 	public PropertyChainBuilder setDecryptorByResource(String passwordResourceName, boolean strongEncryption) {

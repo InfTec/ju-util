@@ -248,7 +248,7 @@ public class XmlUtils {
 	/**
 	 * Indents the specified XML.
 	 * @param xmlString XML string to be indented
-	 * @param includeXmlDeclaration If true, the &lt;?xml ... ?> declaration is included.
+	 * @param includeXmlDeclaration If true, the &lt;?xml ... ?&gt; declaration is included.
 	 * @return Indented XML
 	 */
 	public static String indentXml(String xmlString, boolean includeXmlDeclaration) {
@@ -264,7 +264,7 @@ public class XmlUtils {
 	 * <p>
 	 * Indentation will be two blanks - if true.
 	 * @param document XML Document
-	 * @param includeXmlDeclaration If true, the &lt;?xml ... ?> declaration is included.
+	 * @param includeXmlDeclaration If true, the &lt;?xml ... ?&gt; declaration is included.
 	 * @param indent If true, result will be indented (pretty-printed), using two blanks
 	 * for child indentation
 	 * @return String representation of the XML

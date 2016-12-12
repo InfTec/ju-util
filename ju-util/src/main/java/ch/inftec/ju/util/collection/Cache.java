@@ -2,7 +2,7 @@ package ch.inftec.ju.util.collection;
 
 /**
  * Simple interface for a Cache.
- * <p/>
+ * <p>
  * This acts as a simplified replacement for real use caches like Google Guava AbstractCache.
  */
 public interface Cache<K, V> {

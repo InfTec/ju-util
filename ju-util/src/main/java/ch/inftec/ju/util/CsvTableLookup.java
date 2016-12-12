@@ -16,9 +16,9 @@ import au.com.bytecode.opencsv.CSVReader;
  * key column at the start, e.g:
  * <p>
  * <code>
- *   ;H1;H2<br/>
- *   A;A1;A2<br/>
- *   B;B1;B2<br/>
+ *   ;H1;H2<br>
+ *   A;A1;A2<br>
+ *   B;B1;B2<br>
  * </code>
  * <p>
  * In this example, getValue("A", "H2") would return "A1".

@@ -303,7 +303,7 @@ public class JuUrl {
 		 * Modified to throw an exception if no resource is found.
 		 * <p>
 		 * Default is false, i.e. null is returned if no resource is found
-		 * @retuen This builder
+		 * @return This builder
 		 */
 		public ResourceUrlBuilder exceptionIfNone() {
 			this.exceptionIfNone = true;

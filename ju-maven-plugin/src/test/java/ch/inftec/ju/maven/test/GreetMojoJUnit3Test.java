@@ -17,7 +17,7 @@ import ch.inftec.ju.util.xml.XmlUtils;
  * JUnit3 test cases for plugin tests.
  * <p>
  * <b>Note:</b> mvn install needs to be executed before these test cases will succeed in an IDE
- * @author Martin Meyer <martin.meyer@inftec.ch>
+ * @author martin.meyer@inftec.ch
  *
  */
 @Ignore("Somehow not working on Bamboo after Maven upgrade...")

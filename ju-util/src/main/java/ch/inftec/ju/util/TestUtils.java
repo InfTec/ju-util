@@ -129,7 +129,7 @@ public final class TestUtils {
 	 * Makes sure the specified Document equals the XML resource, 
 	 * ignoring whitespace and formatting.
 	 * @param xmlResource XML resource
-	 * @param doc XML document
+	 * @param actualXml XML document
 	 */
 	public static void assertEqualsXmlResource(String xmlResource, String actualXml) {
 		TestUtils.assertEqualsXmlResource(xmlResource, actualXml, ReflectUtils.getCallingClass());
@@ -159,7 +159,7 @@ public final class TestUtils {
 	 * 
 	 * @param xmlResource
 	 *            XML resource
-	 * @param doc
+	 * @param actualXml
 	 *            XML document
 	 * @param clazz
 	 *            Class the resource is relative to
@@ -444,7 +444,7 @@ public final class TestUtils {
 				/**
 				 * Whether file export is enabled. Defaults to false.
 				 * 
-				 * @param enable
+				 * @param enabled
 				 * @return
 				 */
 				public ExportBuilder<T> enable(boolean enabled) {
@@ -455,7 +455,7 @@ public final class TestUtils {
 				/**
 				 * Set the file path for an export.
 				 * 
-				 * @param fileName
+				 * @param exportFilePath
 				 * @return
 				 */
 				public ExportBuilder<T> exportFilePath(Path exportFilePath) {

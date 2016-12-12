@@ -292,7 +292,7 @@ public class JavaOcp7Test {
 
 		// Methods
 		Assert.assertEquals("US", l.getCountry());
-		Assert.assertEquals("English", l.getDisplayLanguage());
+		Assert.assertEquals("English", l.getDisplayLanguage(Locale.US));
 	}
 	
 	/**
